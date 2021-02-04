@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack serve --config ./webpack.config.js --mode development",
+    "build": "webpack serve --config ./webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,13 @@
   },
   "homepage": "https://gitlab.com/rwlltt/frontend#readme",
   "devDependencies": {
+    "source-map-loader": "^2.0.0",
+    "ts-loader": "^8.0.14",
+    "webpack": "^5.20.1",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
     "typescript": "^4.1.3"
   }
 }
