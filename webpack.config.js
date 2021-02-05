@@ -13,15 +13,11 @@ module.exports = {
     rules: [
       { test: /\.tsx?$/, 
         exclude: /node_modules/,
-        use: [ 'babel-loader',  'ts-loader']
+        use: ['babel-loader', 'ts-loader' ]
       }
-      // {
-      //   test: /\.(jsx?)$/,
-      //   exclude: /node_modules/,
-      //   use: ['babel']
-      // }
     ]
   },
+  devtool: 'inline-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
   },
