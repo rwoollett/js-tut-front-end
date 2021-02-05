@@ -10,6 +10,20 @@ const clickMe = (ev: MouseEvent): void => {
   }
 };
 
+const arr:number[] = [1,2,3,4,5,6,7,8];
+
+let [a, b, ...rest] = arr; 
+console.log(a,b,rest);
 
 const button1 = document.getElementById("b1");
 button1?.addEventListener("click", clickMe);
+
+class Test {
+  constructor(public name: string) {
+    this.name = name;
+  }
+
+  logger () {
+    console.log("Hellcco", this.name);
+  }
+}
