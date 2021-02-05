@@ -1,7 +1,13 @@
 import Person, { add } from './otherFile';
+import styles from './css/style.css';
 
 const view = document.getElementById("view");
 const person = new Person('rodney');
+console.log('Styles', styles);
+const h1 = document.getElementById("h1");
+if (h1) {
+  h1.setAttribute('class', `${styles.bold} ${styles.small}`);
+}
 
 const clickMe = (ev: MouseEvent): void => {
   const sum = add(2,5);
@@ -24,6 +30,18 @@ class Test {
   }
 
   logger () {
-    console.log("Hellcco", this.name);
+    console.log("Hello", this.name);
   }
 }
+var foo = '_we';
+var bar = '_lo';
+var ComputeObj = {
+  ["x" + foo]: "heh",
+  ["y" + bar]: "noo",
+  foo: "foo",
+  bar: "bar"
+};
+
+let myNumber = (x: number) => x;
+
+const A = /o+/y;
