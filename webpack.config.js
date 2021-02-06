@@ -1,5 +1,6 @@
 const path = require('path');
- 
+const ESLintPlugin = require('eslint-webpack-plugin');
+
 module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, './src/index.tsx'),
@@ -38,4 +39,9 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
   },
+  plugins: [
+    new ESLintPlugin({
+      extensions: ['ts','tsx']
+    })
+  ]
 };

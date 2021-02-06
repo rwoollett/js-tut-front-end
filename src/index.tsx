@@ -1,10 +1,8 @@
-import Person, { add } from './otherFile';
+import { add } from './otherFile';
 import styles from './scss/style.scss';
 import mainStyles from './scss/main.scss';
 
 let view:HTMLElement|null;
-
-const person = new Person('rodney');
 
 const h1 = document.getElementById("h1");
 const h2 = document.getElementById("h2");
@@ -44,8 +42,9 @@ if (root) {
   root.setAttribute("class", mainStyles.root);
   const container = document.createElement( "div" );
   if (container) {
-    container.setAttribute("class", `${mainStyles.container} ${mainStyles.board}`);
-    boxes.map(  ({desc, color}: {desc: string; color: string}, i: number) => {
+    container.setAttribute(
+      "class", `${mainStyles.container} ${mainStyles.board}`);
+    boxes.map(  ({desc, color}: {desc: string; color: string}) => {
       const box = document.createElement( "div" );
       if (box) {
         box.setAttribute("class", `${color} ${mainStyles.commentContainer}`);
@@ -57,7 +56,7 @@ if (root) {
   }
 }
 
-let responses = {
+const responses = {
   num1: 0,
   num2: 0,
 };
@@ -76,14 +75,18 @@ if (adder) {
     view = viewAdd;
     formRowGrid1.setAttribute('class', mainStyles['form-row-grid']);
     label1.setAttribute('class', styles.element1);
+    label1.setAttribute('for', "add1");
     label1.textContent = "Add ";
     inputNum1.setAttribute('class', styles.element2);
     inputNum1.setAttribute('name', 'add1');
+    inputNum1.setAttribute('id', 'add1');
     inputNum1.value = ("" + responses.num1);
     label2.setAttribute('class', styles.element3);
     label2.textContent = " to ";
+    label2.setAttribute('for', "add2");
     inputNum2.setAttribute('class', styles.element4);
     inputNum2.setAttribute('name', 'add2');
+    inputNum2.setAttribute('id', 'add2');
     inputNum2.value = ("" + responses.num2);
     label3.setAttribute('class', styles.element5);
     label3.textContent = " = ";
@@ -113,39 +116,29 @@ if (adder) {
   adder.append(formAdd);
 }
 
-const clickMe = (ev: MouseEvent): void => {
+const clickMe = (): void => {
   const sum = add(responses.num1,responses.num2);
   if (view) {
     view.innerHTML = sum + ' ';
   }
 };
 
-const arr:number[] = [1,2,3,4,5,6,7,8];
-
-let [a, b, ...rest] = arr; 
-console.log(a,b,rest);
-
 const button1 = document.getElementById("b1");
 button1?.addEventListener("click", clickMe);
 
-class Test {
-  constructor(public name: string) {
-    this.name = name;
-  }
+const x = { xx : "hello", yy : "world"};
+(function () {
+    console.log("Hello World", x);
+})();
 
-  logger () {
-    console.log("Hello", this.name);
-  }
-}
-var foo = '_we';
-var bar = '_lo';
-var ComputeObj = {
+const foo = '_we';
+const bar = '_lo';
+const ComputeObj = {
   ["x" + foo]: "heh",
   ["y" + bar]: "noo",
   foo: "foo",
   bar: "bar"
 };
 
-let myNumber = (x: number) => x;
+console.log(ComputeObj);
 
-const A = /o+/y;
