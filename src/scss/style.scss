@@ -1,0 +1,19 @@
+.bold {
+  font-weight: 500;
+}
+
+.small {
+  font-size: 18px;
+}
+
+.large {
+  font-size: 38px;
+}
+
+h2 {
+  color: red;
+
+  &:hover {
+    color: blue;
+  }
+}

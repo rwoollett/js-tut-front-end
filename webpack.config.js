@@ -17,8 +17,8 @@ module.exports = {
         use: ['babel-loader', 'ts-loader' ]
       },
       { 
-        test: /\.css$/,
-        include: path.join(__dirname, 'src/css'),
+        test: /\.s?css$/,
+        include: path.join(__dirname, 'src/scss'),
         use: [
           'style-loader', 
           { 
@@ -27,7 +27,8 @@ module.exports = {
           { 
             loader: 'css-loader',
             options: { modules: true }
-          }
+          },
+          'sass-loader'
         ]
       }
     ],

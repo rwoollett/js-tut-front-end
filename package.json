@@ -26,6 +26,8 @@
     "@teamsupercell/typings-for-css-modules-loader": "^2.4.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.1",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^11.0.0",
     "source-map-loader": "^2.0.0",
     "style-loader": "^2.0.0",
     "ts-loader": "^8.0.14",
