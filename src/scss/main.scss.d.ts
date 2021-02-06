@@ -70,6 +70,7 @@ declare namespace MainScssNamespace {
     fa: string;
     footer: string;
     "form-row": string;
+    "form-row-grid": string;
     header: string;
     item: string;
     label: string;

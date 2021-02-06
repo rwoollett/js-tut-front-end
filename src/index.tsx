@@ -2,12 +2,14 @@ import Person, { add } from './otherFile';
 import styles from './scss/style.scss';
 import mainStyles from './scss/main.scss';
 
-const view = document.getElementById("view");
+let view:HTMLElement|null;
+
 const person = new Person('rodney');
 
 const h1 = document.getElementById("h1");
 const h2 = document.getElementById("h2");
 const root = document.getElementById("root");
+const adder = document.getElementById("adderForm");
 if (h1) {
   h1.setAttribute('class', `${styles.large}`);
 }
@@ -55,10 +57,66 @@ if (root) {
   }
 }
 
+let responses = {
+  num1: 0,
+  num2: 0,
+};
+
+if (adder) {
+  const formAdd = document.createElement( "form" );
+  const formRowGrid1 = document.createElement( "div" );
+  const inputNum1 = document.createElement( "input" );
+  const inputNum2 = document.createElement( "input" );
+  const label1 = document.createElement( "label" );
+  const label2 = document.createElement( "label" );
+  const label3 = document.createElement( "label" );
+  const viewAdd = document.createElement( "div" );
+  if (formAdd && formRowGrid1 && label1 && label2 &&
+      label3 && inputNum1 && inputNum2 && viewAdd) {
+    view = viewAdd;
+    formRowGrid1.setAttribute('class', mainStyles['form-row-grid']);
+    label1.setAttribute('class', styles.element1);
+    label1.textContent = "Add ";
+    inputNum1.setAttribute('class', styles.element2);
+    inputNum1.setAttribute('name', 'add1');
+    inputNum1.value = ("" + responses.num1);
+    label2.setAttribute('class', styles.element3);
+    label2.textContent = " to ";
+    inputNum2.setAttribute('class', styles.element4);
+    inputNum2.setAttribute('name', 'add2');
+    inputNum2.value = ("" + responses.num2);
+    label3.setAttribute('class', styles.element5);
+    label3.textContent = " = ";
+    viewAdd.setAttribute('class', styles.element6);
+    viewAdd.textContent = "";
+    formRowGrid1.append(label1);
+    formRowGrid1.append(inputNum1);
+    formRowGrid1.append(label2);
+    formRowGrid1.append(inputNum2);
+    formRowGrid1.append(label3);
+    formRowGrid1.append(viewAdd);
+    inputNum1.addEventListener('change', (evt: Event) => {
+      if (evt.target) {
+        responses['num1'] = parseInt(inputNum1.value);
+        console.log('add num1', responses);
+      }
+    });
+    inputNum2.addEventListener('change', (evt: Event) => {
+      if (evt.target) {
+        responses['num2'] = parseInt(inputNum2.value);
+        console.log('add num2', responses);
+      }
+    });
+    formAdd.append(formRowGrid1);
+  }
+
+  adder.append(formAdd);
+}
+
 const clickMe = (ev: MouseEvent): void => {
-  const sum = add(2,5);
+  const sum = add(responses.num1,responses.num2);
   if (view) {
-    view.innerHTML = 'Sum of 2 + 5 = ' + sum + ' ' + person;
+    view.innerHTML = sum + ' ';
   }
 };
 
