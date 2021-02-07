@@ -1,6 +1,9 @@
 import { add } from './otherFile';
 import styles from './scss/style.scss';
 import mainStyles from './scss/main.scss';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
 let view:HTMLElement|null;
 
@@ -141,4 +144,10 @@ const ComputeObj = {
 };
 
 console.log(ComputeObj);
-
+ 
+ReactDOM.render(
+  <React.StrictMode>
+    <App title="Front Ends"/>
+  </React.StrictMode>,
+  document.getElementById('app')
+);
