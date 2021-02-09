@@ -16,6 +16,11 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.png/,
+        type: 'asset/resource'
+
+      },
       { test: /\.tsx?$/, 
         exclude: /node_modules/,
         use: ['babel-loader', 'ts-loader' ]

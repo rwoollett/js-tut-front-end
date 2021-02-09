@@ -1,5 +1,6 @@
 // External libraries
-var express = require('express');
+import express from 'express';
+import {json} from 'body-parser';
 
 // Local files
 var api = require('./api/api');
@@ -7,6 +8,7 @@ var api = require('./api/api');
 // = DEV =
 // This stands up the express.js API
 var app = express();
+app.use(json());
 
 // We define the API routes here
 api.defineApi(app);

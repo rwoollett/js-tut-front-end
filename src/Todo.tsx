@@ -1,4 +1,4 @@
-import { hot } from 'react-hot-loader/root';
+
 import React from 'react';
 
 interface TodoItemProps {
@@ -12,4 +12,4 @@ const TodoItem = ({done = false, text}: TodoItemProps): JSX.Element => {
    );
 };
 
-export default hot(TodoItem);
+export default TodoItem;

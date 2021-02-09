@@ -1,19 +1,13 @@
 import { hot } from 'react-hot-loader/root';
 import React, { useState } from 'react';
-import TodoItem from './Todo';
-//const api_url = process.env.API_URL || '';
+import HomePage from './components/HomePage';
 
 interface AppProps {
   title: string;
   done?: boolean;
 }
 
-interface AppState {
-  hello: string;
-  world: string;
-}
-
-class App extends React.Component<AppProps, AppState> {
+class App extends React.Component<AppProps, unknown> {
   
   static defaultProps: Partial<AppProps> = {
     done: false,
@@ -21,45 +15,14 @@ class App extends React.Component<AppProps, AppState> {
 
   constructor(props: AppProps) {
     super(props);
-    this.state = {
-      hello: '',
-      world: ''
-    };
-  }
-
-  componentDidMount(){
-    
-    fetch('/api/v1/hello')
-      .then(function(response) {
-        return response.text();
-        })
-      .then( (text) => {
-        this.setState({
-          hello: text
-        });
-      });
-    
-    fetch('/api/v1/world')
-      .then(function(response) {
-        return response.text();
-        }).then( (text) => {
-          this.setState({
-            world: text
-          });
-      });
   }
 
   render() {
-    const {title, done} = this.props;
-    const {hello, world} = this.state;
-    return (<div>
-             <div>{hello} the {world} - {title} {done}</div>
-              <TodoItem text="update 2"/>
-              <ReactFCComponent text="my component">
-                <p>one</p>
-                <p>two</p>
-              </ReactFCComponent> 
-            </div>);
+    return (
+    <div>
+       <HomePage/>
+       <ReactFCComponent text="Hi"/>
+    </div>);
   }
 }
 

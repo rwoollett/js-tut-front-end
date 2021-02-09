@@ -6,14 +6,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 let view:HTMLElement|null;
-
-const h1 = document.getElementById("h1");
 const h2 = document.getElementById("h2");
 const root = document.getElementById("root");
 const adder = document.getElementById("adderForm");
-if (h1) {
-  h1.setAttribute('class', `${styles.large}`);
-}
 if (h2) {
   h2.setAttribute('class', `${styles.bold} ${styles.small}`);
 }
@@ -128,22 +123,6 @@ const clickMe = (): void => {
 
 const button1 = document.getElementById("b1");
 button1?.addEventListener("click", clickMe);
-
-const x = { xx : "hello", yy : "world"};
-(function () {
-    console.log("Hello World", x);
-})();
-
-const foo = '_we';
-const bar = '_lo';
-const ComputeObj = {
-  ["x" + foo]: "heh",
-  ["y" + bar]: "noo",
-  foo: "foo",
-  bar: "bar"
-};
-
-console.log(ComputeObj);
  
 ReactDOM.render(
   <React.StrictMode>
