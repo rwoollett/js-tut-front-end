@@ -4,7 +4,7 @@ const { webpack } = require('webpack');
 
 module.exports = {
   mode: 'development',
-  entry: path.resolve(__dirname, './src/index.tsx'),
+  entry: [path.resolve(__dirname, './src/index.tsx')],
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
@@ -39,7 +39,14 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
-    hot: true
+    hot: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8081',
+        secure: false
+      }
+    },
+    publicPath: '/'
   },
   plugins: [
     new ESLintPlugin({
