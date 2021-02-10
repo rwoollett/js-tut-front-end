@@ -6,10 +6,10 @@ interface AppProps {
   title: string;
   done?: boolean;
 }
-
+ 
 class App extends React.Component<AppProps, unknown> {
   
-  static defaultProps: Partial<AppProps> = {
+  static defaultProps: Partial<AppProps> = { 
     done: false,
   }
 
@@ -17,7 +17,7 @@ class App extends React.Component<AppProps, unknown> {
     super(props);
   }
 
-  render() {
+  render(): JSX.Element {
     return (
     <div>
        <HomePage/>

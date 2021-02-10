@@ -2,7 +2,7 @@
 var express = require('express');
 
 // Local files
-var api = require('./api/api');
+var api = require('./api');
 
   // = PROD =
   // This is here for simplicity's sake,

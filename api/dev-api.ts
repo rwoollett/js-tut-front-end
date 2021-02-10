@@ -3,7 +3,7 @@ import express from 'express';
 import {json} from 'body-parser';
 
 // Local files
-var api = require('./api/api');
+var api = require('./api');
 
 // = DEV =
 // This stands up the express.js API
