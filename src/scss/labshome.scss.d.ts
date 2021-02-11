@@ -8,6 +8,7 @@ declare namespace LabshomeScssNamespace {
     next: string;
     popular: string;
     "popular-labs": string;
+    "search-bar": string;
     top: string;
   }
 }

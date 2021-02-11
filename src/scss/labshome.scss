@@ -33,7 +33,21 @@
   color: rgba(0, 0, 0, 0.5);
   font-size: calc(6px + 3vw / 2);
 }
-
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.search-bar p {
+  font-size: calc(5px + 3vw / 2);
+  font-weight: lighter;
+  margin-right: 10px;
+}
+.search-bar h2 {
+  font-size: calc(8px + 3vw / 2);
+  font-weight: lighter;
+  margin-right: 10px;
+}
 .popular p {
   font-size: calc(5px + 3vw / 2);
   font-weight: lighter;
