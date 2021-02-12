@@ -1,5 +1,6 @@
 import { SEARCH_REQUEST, SEARCH_SUCCESS } from '../actions/actions';
 import { AnyAction } from 'redux';
+import { createSlice } from '@reduxjs/toolkit'
 
 export interface IHomePageState {
     searchResults: string[];
@@ -8,10 +9,18 @@ export interface IHomePageState {
 }
 
 const initialState:IHomePageState = {
-    searchResults: [],
+    searchResults: ['Hi there', 'Sea'],
     hits: 0,
     currentQuery: ""
 };
+
+// const searchSlice = createSlice({
+//     name: 'search',
+//     initialState,
+//     reducers: {}
+//   })
+  
+// export default searchSlice.reducer;
 
 export default function searchReducer(
     state: IHomePageState|undefined, action: AnyAction ): 
@@ -19,7 +28,6 @@ export default function searchReducer(
     if (typeof state === 'undefined') {
         return initialState;
     }
-
     //const clone = (items:any) => 
     //  items.map( (item:any) => Array.isArray(item) ? clone(item) : item);
     // const items = [0,[1],3];

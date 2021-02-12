@@ -1,6 +1,12 @@
 import { hot } from 'react-hot-loader/root';
-import React, { useState } from 'react';
+import React from 'react';
 import HomePage from './components/HomePage';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 
 interface AppProps {
   title: string;
@@ -18,25 +24,15 @@ class App extends React.Component<AppProps, unknown> {
   }
 
   render(): JSX.Element {
-    return (
+    return (<Router>
     <div>
-       <HomePage/>
-       <ReactFCComponent text="Hi"/>
-    </div>);
+      <Switch>
+        <Route exact path="/" render={() => <HomePage/>}/>
+        <Redirect to="/" />
+       </Switch>
+    </div>
+    </Router>);
   }
 }
-
-const ReactFCComponent: React.FC<{text:string}> = ({children, text}) => {
-  const [value, setValue] = useState('');
-
-  return (<div>
-      <h1>{text}</h1>
-      {children}
-      <label htmlFor="in1"/>
-      <input id="in1" onChange={(e) => setValue(e.target.value)}></input>
-      <hr/>
-      {value}
-    </div>);
-};
 
 export default hot(App);

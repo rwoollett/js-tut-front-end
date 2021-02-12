@@ -48,6 +48,42 @@
   font-weight: lighter;
   margin-right: 10px;
 }
+.post-form {
+  display: block;
+}
+.post-form h2 {
+  display: block;
+  color: rgba(55, 182, 134, 1);
+  font-size: calc(5px + 3vw / 2);
+  margin-right: 10px;
+}
+.post-form form label {
+  display: block;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: calc(5px + 3vw / 2);
+  margin-right: 10px;
+}
+.post-form form input {
+  font-size: calc(8px + 3vw / 2);
+  color: rgba(0, 0, 0, 0.5);
+  margin: 10px 0px 10px;
+}
+.post-form form textarea {
+  font-size: calc(8px + 3vw / 2);
+  color: rgba(0, 0, 0, 0.5);
+  margin: 10px 0px 10px;
+}
+.post-form form button {
+  display: block;
+  font-size: calc(8px + 3vw / 2);
+  color: rgba(0, 0, 0, 0.75);
+  margin: 10px 0px 10px;
+  background: white;
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  text-align: center;
+}
+
 .popular p {
   font-size: calc(5px + 3vw / 2);
   font-weight: lighter;

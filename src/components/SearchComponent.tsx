@@ -4,9 +4,7 @@ import { search } from '../actions/actions'; //, debouncedSearch, throttledSearc
 import AutoComplete from 'react-autocomplete';
 import {IHomePageState} from '../store/reducer';
 import style from '../scss/labshome.scss';
-
-
-
+ 
 function SearchComponent(): JSX.Element {
 	const [query, setQuery] = useState("");
 	const hits = useSelector<IHomePageState, number>(state => state.hits);

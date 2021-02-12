@@ -4,10 +4,9 @@ import style from '../scss/labshome.scss';
 import HomeNavigation from './HomeNavigation';
 import PopularCards from './PopularCards';
 import { CardProps} from './Card';
-import SearchComponent from './SearchComponent';
+import PostsComponent from './PostsComponent';
 import store from '../store/store';
 import { Provider } from 'react-redux';
-
 
 interface HomePageProps {
   children: JSX.Element[];
@@ -88,9 +87,9 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
       <div>
         <Provider store={store}>
           <Banner title={title} desc={description}/>
-          <SearchComponent/>
           <div className={style.container}>
             <HomeNavigation cards={navCards}/>
+            <PostsComponent/>
             <PopularCards cards={popularCards}/>
           </div>
           <p>{isFetching ? 'Fetching home page ...' : ''}</p>
