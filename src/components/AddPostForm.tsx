@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styles from '../scss/labshome.scss';
 import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { postAdded } from '../features/posts/postsSlice';
@@ -30,10 +29,8 @@ export const AddPostForm: React.FC = () => {
   };
       
   return (
-    <section className={styles['post-form']}>
-      <h2>Add a New Post</h2>
       <form>
-        <label htmlFor="postTitle">Post Title:</label>
+        <label htmlFor="postTitle">Post Title</label>
         <input
           type="text"
           id="postTitle"
@@ -42,15 +39,14 @@ export const AddPostForm: React.FC = () => {
           onChange={onTitleChanged}
         />
         
-        <label htmlFor="postContent">Content:</label>
+        <label htmlFor="postContent">Content</label>
         <textarea
           id="postContent"
           name="postContent"
           value={content}
           onChange={onContentChanged}
         />
-        <button type="button" onClick={onSavePostClicked}>Save Post</button>
+        <button type="button" onClick={onSavePostClicked}>Save</button>
       </form>
-    </section>
   );
 };

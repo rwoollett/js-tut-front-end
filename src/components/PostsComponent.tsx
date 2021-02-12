@@ -10,17 +10,23 @@ function PostsComponent(): JSX.Element {
 
 	//const dispatch = useDispatch();
 
-  return (<div className={styles.popular}>
-      <AddPostForm />
+  return (<div className={styles.posts}>
 			<h2>Posts to Popular Laboratories</h2>
-			<div className={styles['home-nav']}>
-			{
-				posts.map( (post):JSX.Element => 
-					(
-						<Card key={post.id} title={post.title} catchPhrase={post.content}/>
-					)
-				) 
-			}
+			<p>Follow the posts made to Programming Laboratories</p>
+			<div className={styles['posts-content']}>
+				<AddPostForm />
+				<div className={styles['posts-list']}>
+					{
+						posts.map( (post):JSX.Element => 
+							(
+								<Card 
+								  key={post.id} 
+									title={post.title} 
+									catchPhrase={post.content}/>
+							)
+						) 
+					}
+			</div>
 		</div>
 	</div>);
 }

@@ -8,7 +8,9 @@ declare namespace LabshomeScssNamespace {
     next: string;
     popular: string;
     "popular-labs": string;
-    "post-form": string;
+    posts: string;
+    "posts-content": string;
+    "posts-list": string;
     "search-bar": string;
     top: string;
   }

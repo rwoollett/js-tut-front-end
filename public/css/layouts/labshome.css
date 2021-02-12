@@ -5,7 +5,7 @@
       rgba(34, 73, 117, 0.5),
       rgba(34, 73, 117, 0.5)
     ),
-    url(./images/berlin.png);
+    url(../../images/berlin.jpg);
   background-size: cover;
   background-position: center;
   padding: calc(40px + 3vw / 2) 0px;
@@ -32,109 +32,6 @@
 .home-nav p {
   color: rgba(0, 0, 0, 0.5);
   font-size: calc(6px + 3vw / 2);
-}
-.search-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.search-bar p {
-  font-size: calc(5px + 3vw / 2);
-  font-weight: lighter;
-  margin-right: 10px;
-}
-.search-bar h2 {
-  font-size: calc(8px + 3vw / 2);
-  font-weight: lighter;
-  margin-right: 10px;
-}
-
-.posts h2 {
-  font-size: calc(8px + 3vw / 2);
-  margin-right: 10px;
-  font-weight: lighter;
-}
-.posts h3 {
-  font-size: calc(8px + 3vw / 2);
-  color: rgba(55, 182, 134, 1);
-  margin-right: 10px;
-  font-weight: lighter;
-}
-.posts p {
-  font-size: calc(5px + 3vw / 2);
-  font-weight: lighter;
-}
-
-.posts-content {
-  display: flex;
-  justify-content: space-between;
-}
-
-.posts-content form {
-  flex: 0 0 190px;
-}
-
-.posts-content label,
-input,
-textarea {
-  width: 100%;
-  font-size: calc(8px + 3vw / 2);
-  color: rgba(0, 0, 0, 0.5);
-  margin: 10px 0px 10px;
-  height: calc(25px + 3vw / 2);
-}
-
-.posts-content textarea {
-  padding: 10px;
-  border-right: 1px solid;
-  /* resize  : none; */
-  overflow: auto;
-  height: calc(100px + 3vw / 2);
-}
-
-.posts-content label + textarea {
-  margin-top: 0px;
-}
-
-.posts-content button {
-  display: block;
-  font-size: calc(8px + 3vw / 2);
-  color: rgba(0, 0, 0, 0.75);
-  margin: 10px 0px 10px;
-  background: white;
-  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
-  border: 2px solid rgb(51, 51, 51);
-  border-radius: 5px;
-  padding: 5px;
-  cursor: pointer;
-  text-align: center;
-  height: calc(25px + 3vw / 2);
-  width: calc(120px + 3vw / 2);
-}
-
-.posts-content button:after {
-  content: '';
-}
-
-.posts-content button:hover,
-button:focus {
-  outline: none;
-  background: rgba(55, 182, 134, 1);
-  color: #fff;
-}
-
-.posts-content input:focus,
-textarea:focus {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-}
-
-.posts-content .posts-list {
-  flex-grow: 1;
-}
-
-.posts-list {
-  display: block;
 }
 
 .popular p {
@@ -193,7 +90,6 @@ textarea:focus {
   text-align: center;
   display: flex;
   justify-content: space-around;
-  height: fit-content;
 }
 
 @media (max-width: 992px) {

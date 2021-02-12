@@ -1,0 +1,36 @@
+/* TODO: code the blogpost layout */
+
+.banner {
+  background-image: linear-gradient(
+      rgba(34, 73, 117, 0.5),
+      rgba(34, 73, 117, 0.5)
+    ),
+    url(../../images/berlin.jpg);
+  background-size: cover;
+  background-position: center;
+  padding: 70px 0px;
+  color: white;
+}
+
+.container {
+  width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 350px;
+  }
+}
