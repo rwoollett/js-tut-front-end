@@ -5,10 +5,7 @@ import Card from './Card';
 import { AddPostForm } from './AddPostForm';
 
 function PostsComponent(): JSX.Element {
-	//const [query, setQuery] = useState("");
   const posts = useTypedSelector(state => state.posts);
-
-	//const dispatch = useDispatch();
 
   return (<div className={styles.posts}>
 			<h2>Posts to Popular Laboratories</h2>
@@ -22,7 +19,8 @@ function PostsComponent(): JSX.Element {
 								<Card 
 								  key={post.id} 
 									title={post.title} 
-									catchPhrase={post.content}/>
+									catchPhrase={post.content.substring(0, 100)}
+									link={ {text:"View Post", to:`/posts/${post.id}`}}/>
 							)
 						) 
 					}
@@ -32,21 +30,3 @@ function PostsComponent(): JSX.Element {
 }
 
 export default PostsComponent;
-
-
-// export const PostsList = () => {
-
-//   const renderedPosts = posts.map(post => (
-//     <article className="post-excerpt" key={post.id}>
-//       <h3>{post.title}</h3>
-//       <p className="post-content">{post.content.substring(0, 100)}</p>
-//     </article>
-//   ))
-
-//   return (
-//     <section className="posts-list">
-//       <h2>Posts</h2>
-//       {renderedPosts}
-//     </section>
-//   )
-// }

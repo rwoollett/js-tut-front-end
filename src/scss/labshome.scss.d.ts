@@ -5,9 +5,12 @@ declare namespace LabshomeScssNamespace {
     container: string;
     footer: string;
     "home-nav": string;
+    "navbar-minimal": string;
     next: string;
     popular: string;
     "popular-labs": string;
+    post: string;
+    "post-content": string;
     posts: string;
     "posts-content": string;
     "posts-list": string;
