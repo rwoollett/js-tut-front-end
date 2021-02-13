@@ -5,7 +5,7 @@ import { useTypedSelector } from '../features/rootReducer';
 import { postUpdated } from '../features/posts/postsSlice';
 import style from '../scss/labshome.scss';
 
-export const EditPostForm: React.FC<{match: {params:{postId:string}}}> = (
+const EditPostForm: React.FC<{match: {params:{postId:string}}}> = (
     {match}) => {
 
   const { postId } = match.params;
@@ -58,4 +58,4 @@ export const EditPostForm: React.FC<{match: {params:{postId:string}}}> = (
   );
 };
 
-export default EditPostForm;
+export { EditPostForm };

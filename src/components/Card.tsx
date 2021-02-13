@@ -24,5 +24,4 @@ const Card = ({title, catchPhrase, link}: CardProps): JSX.Element => {
    </div>);
 };
 
-export default Card;
-export {CardProps};
+export {Card, CardProps};

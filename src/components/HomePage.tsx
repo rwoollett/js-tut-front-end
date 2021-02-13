@@ -1,10 +1,11 @@
 import React from 'react';
-import Banner from './Banner';
+import { Banner } from './Banner';
 import style from '../scss/labshome.scss';
-import HomeNavigation from './HomeNavigation';
-import PopularCards from './PopularCards';
+import { HomeNavigation } from './HomeNavigation';
+import { PopularCards } from './PopularCards';
 import { CardProps} from './Card';
-import PostsComponent from './PostsComponent';
+import { PostsComponent } from './PostsComponent';
+import { homepage } from '../../api/homepage.json';
 
 interface HomePageProps {
   children: JSX.Element[];
@@ -70,8 +71,14 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
           isFetching: false
         });
       }
-  } catch (response) {
+    } catch (response) {
       console.log("Error", response);
+      const {title, description, navCards, popularCards} 
+           = homepage;
+      this.setState({
+        title, description, navCards, popularCards,
+        isFetching: false
+      });
     }
   }
 
@@ -94,4 +101,4 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
   }
 }
 
-export default HomePage;
+export { HomePage };

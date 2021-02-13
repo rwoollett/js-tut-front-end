@@ -19,7 +19,7 @@ const initialState:Post[] =
 // eg. Post is the payload for postAdded
 // CreateSlice lets us define a "prepare callback" 
 // function for action.payload
-const postsSlice = createSlice({
+export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
@@ -49,4 +49,5 @@ const postsSlice = createSlice({
 });
 
 export const { postAdded, postUpdated } = postsSlice.actions;
-export default postsSlice.reducer;
+//export default postsSlice.reducer;
+export const { reducer } = postsSlice; 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../scss/labshome.scss';
-import Card, {CardProps} from './Card';
+import { Card, CardProps} from './Card';
 
 const PopularCards: React.FC<{cards: CardProps[]}> = (
      {cards}): JSX.Element => {
@@ -21,4 +21,4 @@ const PopularCards: React.FC<{cards: CardProps[]}> = (
   </div>);
 };
 
-export default PopularCards;
+export { PopularCards };

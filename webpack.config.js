@@ -2,7 +2,7 @@ const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  // mode: 'development',
   entry: {
     app: [path.resolve(__dirname, './src/index.tsx')]
   },
@@ -16,7 +16,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.png/,
+        test: /\.(png|jpg)/,
         type: 'asset/resource'
 
       },

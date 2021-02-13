@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../scss/labshome.scss';
-import Card, {CardProps} from './Card';
+import { Card, CardProps} from './Card';
 
 const HomeNavigation: React.FC<{cards: CardProps[]}> = (
      {cards}): JSX.Element => {
@@ -16,4 +16,4 @@ const HomeNavigation: React.FC<{cards: CardProps[]}> = (
   </div>);
 };
 
-export default HomeNavigation;
+export { HomeNavigation };

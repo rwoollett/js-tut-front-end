@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../scss/labshome.scss';
 import { useTypedSelector } from '../features/rootReducer';
-import Card from './Card';
+import { Card } from './Card';
 import { AddPostForm } from './AddPostForm';
 
 function PostsComponent(): JSX.Element {
@@ -29,4 +29,4 @@ function PostsComponent(): JSX.Element {
 	</div>);
 }
 
-export default PostsComponent;
+export { PostsComponent };
