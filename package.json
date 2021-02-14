@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --config ./webpack.config.js --mode=development",
-    "build": "webpack --config ./webpack.config.js --mode=production",
+    "start": "webpack serve --config config/webpack.dev.js --mode=development",
+    "build": "webpack --config config/webpack.prod.js --mode=production",
     "dev-api": "ts-node api/dev-api.ts",
     "dev": "concurrently --kill-others \"npm run start\" \"npm run dev-api\"",
     "preprod": "npm run build",
@@ -60,11 +60,12 @@
     "typescript": "^4.1.3",
     "typings-for-css-modules-loader": "^1.7.0",
     "webpack": "^5.20.1",
+    "webpack-bundle-analyzer": "^4.4.0",
     "webpack-cli": "^4.5.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
   },
   "dependencies": {
-    "core-js": "^3.8.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",

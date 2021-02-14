@@ -1,15 +1,15 @@
 {
   "presets": [
-    "@babel/preset-env",
+    ["@babel/preset-env", { "modules": false}],
     "@babel/preset-typescript",
     "@babel/preset-react" 
   ],
   "plugins": [
-    // ["@babel/plugin-transform-destructuring", { 
-    //   "useBuiltIns": true 
-    //   }
-    // ],
-    // "@babel/plugin-transform-classes",
+    ["@babel/plugin-transform-destructuring", { 
+      "useBuiltIns": true 
+      }
+    ],
+    "@babel/plugin-transform-classes",
     "@babel/plugin-transform-computed-properties",
     "@babel/plugin-transform-async-to-generator"
 
