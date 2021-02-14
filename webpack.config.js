@@ -1,5 +1,9 @@
 const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// instead of style-loader used MiniCssExtractPlugin.loader
 
 module.exports = {
   // mode: 'development',
@@ -7,8 +11,10 @@ module.exports = {
     app: [path.resolve(__dirname, './src/index.tsx')]
   },
   output: {
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js',
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
@@ -16,7 +22,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpg)/,
+        test: /\.(png|jpg|svg)/,
         type: 'asset/resource'
 
       },
@@ -28,7 +34,7 @@ module.exports = {
         test: /\.s?css$/,
         include: path.join(__dirname, 'src/scss'),
         use: [
-          'style-loader', 
+          MiniCssExtractPlugin.loader, 
           { 
             loader: '@teamsupercell/typings-for-css-modules-loader'
           },
@@ -55,9 +61,18 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      //publicPath: "/",
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Labs Home',
+      template: './public/index.html'
+    }),
     new ESLintPlugin({
       extensions: ['ts','tsx']
     })
-    
-  ]
+ ]
 };

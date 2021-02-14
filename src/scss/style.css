@@ -1,8 +1,3 @@
-@import 'normalize.css';
-
-/* Importing layouts */
-/* Layouts are done in React component CSS modules (see layouts/labshome.scss)
-/* @import url('layouts/labshome.css'); */
 html {
   font-size: 16px;
 }
