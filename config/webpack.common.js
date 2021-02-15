@@ -60,9 +60,8 @@ module.exports = {
     },
     devtool: 'source-map',
     plugins: [
-      new CleanWebpackPlugin(),
+      new CleanWebpackPlugin({ dry: true }),
       new MiniCssExtractPlugin({
-        //publicPath: "/",
         filename: "[name].css",
         chunkFilename: "[id].css",
       }),
