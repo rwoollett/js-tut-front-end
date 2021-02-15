@@ -8,7 +8,6 @@
     "build": "webpack --config config/webpack.prod.js --mode=production",
     "dev-api": "ts-node api/dev-api.ts",
     "dev": "concurrently --kill-others \"npm run start\" \"npm run dev-api\"",
-    "preprod": "npm run build",
     "prod": "ts-node api/prod-server.ts"
   },
   "repository": {
