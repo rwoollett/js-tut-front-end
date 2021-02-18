@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Banner } from './Banner';
 import style from '../scss/labshome.scss';
-import { HomeNavigation } from './HomeNavigation';
 import { PopularCards } from './PopularCards';
 import { CardProps} from './Card';
-import { PostsComponent } from './PostsComponent';
-import { homepage } from '../../api/homepage.json';
+import homepage from '../homepage.json';
+
+//import HomeNavigation from './HomeNavigation';
+import PostsComponent from './PostsComponent';
+
+// function lazyWithPreload(factory) {
+//   const Component = lazy(factory);
+
+//   // Comment below line to check difference ->
+//   Component.preload = factory;
+//   return Component;
+// }
+const HomeNavigation = lazy(() => import('./HomeNavigation'));
+//const PostsComponent = lazy(() => import('./PostsComponent'));
+
 
 interface HomePageProps {
   children: JSX.Element[];
@@ -52,7 +64,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
       description: '',
       navCards: [{title: ' ', catchPhrase: ''}],
       popularCards: [{title: ' ', catchPhrase: ''}],
-      isFetching: false
+      isFetching: true
     };
 
   } 
@@ -74,7 +86,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
     } catch (response) {
       console.log("Error", response);
       const {title, description, navCards, popularCards} 
-           = homepage;
+           = homepage.homepage;
       this.setState({
         title, description, navCards, popularCards,
         isFetching: false
@@ -89,16 +101,18 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
   render (): JSX.Element {
     const {title, description, navCards, popularCards, isFetching} = this.state;
     return (
-      <div>
-        <Banner title={title} desc={description}/>
-        <div className={style.container}>
-          <HomeNavigation cards={navCards}/>
-          <PostsComponent/>
-          <PopularCards cards={popularCards}/>
-        </div>
-        <p>{isFetching ? 'Fetching home page ...' : ''}</p>
-      </div>);
+        isFetching ? 
+         <div>'Fetching home page ...'</div> : 
+         <div><Banner title={title} desc={description}/>
+          <div className={style.container}>
+            <Suspense fallback={<div>Loading.....</div>}>
+              {<HomeNavigation cards={navCards}/>}
+            </Suspense>
+            <PostsComponent/>
+            <PopularCards cards={popularCards}/>
+          </div>
+        </div>);
   }
 }
 
-export { HomePage };
+export default HomePage;

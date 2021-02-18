@@ -3,6 +3,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { allowedNodeEnvironmentFlags } = require('process');
 
 module.exports = {
     entry: {
@@ -15,14 +16,14 @@ module.exports = {
       publicPath: '/'
     },
     optimization: {
-      runtimeChunk: 'single',
       splitChunks: {
+        chunks: 'all',
         cacheGroups: {
-          vendor: {
+          defaultVendor: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
+            priority: -10,
+            reuseExistingChunk: true
+          }
         },
       },
     },
@@ -60,7 +61,7 @@ module.exports = {
     },
     devtool: 'source-map',
     plugins: [
-      new CleanWebpackPlugin({ dry: true }),
+      new CleanWebpackPlugin({ dry: false }),
       new MiniCssExtractPlugin({
         filename: "[name].css",
         chunkFilename: "[id].css",

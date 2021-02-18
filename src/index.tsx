@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-require('regenerator-runtime/runtime');
+import 'regenerator-runtime/runtime.js';
  
 ReactDOM.render(
   <React.StrictMode>

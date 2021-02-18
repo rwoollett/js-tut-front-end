@@ -6,9 +6,9 @@
   "scripts": {
     "start": "webpack serve --config config/webpack.dev.js --mode=development",
     "build": "webpack --config config/webpack.prod.js --mode=production",
-    "dev-api": "ts-node api/dev-api.ts",
+    "dev-api": "ts-node --project api/tsconfig.json api/dev-api.ts",
     "dev": "concurrently --kill-others \"npm run start\" \"npm run dev-api\"",
-    "prod": "ts-node api/prod-server.ts"
+    "prod": "ts-node --project api/tsconfig.json api/prod-server.ts"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "@types/react-dom": "^17.0.1",
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
+    "@types/regenerator-runtime": "^0.13.0",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "babel-loader": "^8.2.2",

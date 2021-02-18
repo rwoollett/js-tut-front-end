@@ -34,4 +34,4 @@ function PostsComponent(): JSX.Element {
 	</div>);
 }
 
-export { PostsComponent };
+export default PostsComponent;

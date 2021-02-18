@@ -16,4 +16,4 @@ const HomeNavigation: React.FC<{cards: CardProps[]}> = (
   </div>);
 };
 
-export { HomeNavigation };
+export default HomeNavigation;
