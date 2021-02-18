@@ -14,4 +14,4 @@ console.log("i,age", Logo);
 
 };
 
-export { NavBar };
+export default NavBar ;

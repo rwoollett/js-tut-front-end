@@ -1,9 +1,9 @@
 import React, { lazy, Suspense } from 'react';
-import { Banner } from './Banner';
+import Banner from './Banner';
 import style from '../scss/labshome.scss';
-import { PopularCards } from './PopularCards';
+import PopularCards from './PopularCards';
 import { CardProps} from './Card';
-import homepage from '../homepage.json';
+import homepage from '../../api/homepage.json';
 
 //import HomeNavigation from './HomeNavigation';
 import PostsComponent from './PostsComponent';

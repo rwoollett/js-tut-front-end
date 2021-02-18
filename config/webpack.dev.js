@@ -17,7 +17,7 @@ const devConfig = {
     publicPath: '/'
   },
   plugins: [
-    new BundleAnalyzerPlugin()
+    //new BundleAnalyzerPlugin()
   ]
 };
 

@@ -16,4 +16,4 @@ const Banner = ({title, desc}: BannerProps): JSX.Element => {
   </div>);
 };
 
-export { Banner };
+export default Banner;

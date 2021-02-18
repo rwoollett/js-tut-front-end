@@ -5,7 +5,8 @@ import { Post } from './types';
 const initialState:Post[] = 
   [
     { id: '1', title: 'First Post!', content: 'Hello!' },
-    { id: '2', title: 'Second Post', content: 'More text' }
+    { id: '2', title: 'Second Post', content: 'More text' },
+    { id: '3', title: 'Third Post', content: 'More text' }
   ];
 
 // Warning on reducer immutabiliy:

@@ -58,4 +58,4 @@ const EditPostForm: React.FC<{match: {params:{postId:string}}}> = (
   );
 };
 
-export { EditPostForm };
+export default EditPostForm;

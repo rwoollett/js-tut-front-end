@@ -31,4 +31,4 @@ const SinglePostPage: React.FC<{match: {params:{postId:string}}}> = (
   );
 };
 
-export { SinglePostPage };
+export default SinglePostPage;

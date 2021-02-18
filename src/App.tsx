@@ -1,9 +1,9 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import HomePage from './components/HomePage';
-import { SinglePostPage } from './components/SinglePostPage';
-import { EditPostForm } from './components/EditPostForm';
-import { NavBar } from './components/NavBar';
+import SinglePostPage  from './components/SinglePostPage';
+import EditPostForm  from './components/EditPostForm';
+import NavBar from './components/NavBar';
 import style from './scss/labshome.scss';
 
 import {

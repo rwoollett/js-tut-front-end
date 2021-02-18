@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postAdded } from '../features/posts/postsSlice';
 
-export const AddPostForm: React.FC = () => {
+const AddPostForm: React.FC = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const dispatch = useDispatch();
@@ -42,3 +42,5 @@ export const AddPostForm: React.FC = () => {
       </form>
   );
 };
+
+export default AddPostForm;
