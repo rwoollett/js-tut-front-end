@@ -31,7 +31,7 @@ const EditPostForm: React.FC<{match: MatchProps}> = (
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(postUpdated({ id: postId, title, content }));
+      dispatch(postUpdated({ id: postId, title, content, user: "" }));
       history.push(`/posts/${postId}`);
     }
   };
@@ -65,6 +65,9 @@ const EditPostForm: React.FC<{match: MatchProps}> = (
 
 EditPostForm.propTypes = {
   match: PropTypes.exact( {
+    path: PropTypes.string,
+    url: PropTypes.string,
+    isExact: PropTypes.bool,
     params: PropTypes.exact( {
       postId: PropTypes.string.isRequired
     }).isRequired

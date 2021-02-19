@@ -9,13 +9,15 @@ interface CardProps {
     to: string;
     text: string;
   }|undefined;
+  author?: JSX.Element|undefined;
 }
 
-const Card = ({title, catchPhrase, link}: CardProps): JSX.Element => {
+const Card = ({title, catchPhrase, link, author}: CardProps): JSX.Element => {
   return (
     <div className={style.card}>
       <div>
         <h3>{title}</h3>
+        { author ? author : '' }
         <p>{catchPhrase}</p>
         { link ? <Link to={link.to}>
             {link.text}

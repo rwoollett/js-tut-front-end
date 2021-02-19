@@ -4,9 +4,9 @@ import { Post } from './types';
 
 const initialState:Post[] = 
   [
-    { id: '1', title: 'First Post!', content: 'Hello!' },
-    { id: '2', title: 'Second Post', content: 'More text' },
-    { id: '3', title: 'Third Post', content: 'More text' }
+    { id: '1', title: 'First Post!', content: 'Hello!', user:'2' },
+    { id: '2', title: 'Second Post', content: 'More text', user:'2' },
+    { id: '3', title: 'Third Post', content: 'More text', user:'1' }
   ];
 
 // Warning on reducer immutabiliy:
@@ -28,12 +28,13 @@ export const postsSlice = createSlice({
       reducer(state, action: PayloadAction<Post>) {
         state.push(action.payload);
       },
-      prepare(title: string, content: string) {
+      prepare(title: string, content: string, userId: string) {
         return {
           payload: {
             id: nanoid(),
             title,
-            content
+            content,
+            user: userId
           }
         };
       }

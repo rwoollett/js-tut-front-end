@@ -4,6 +4,7 @@ import styles from '../scss/labshome.scss';
 import { useTypedSelector } from '../features/rootReducer';
 import Card from './Card';
 import AddPostForm from './AddPostForm';
+import PostAuthor from './PostAuthor';
 
 // const AddPostForm = loadable(() => import("./AddPostForm"), {
 //   fallback: <p>Waiting..</p>
@@ -23,7 +24,8 @@ function PostsComponent(): JSX.Element {
 						(
 							<Card key={post.id}	title={post.title} 
 							catchPhrase={post.content.substring(0, 100)} 
-							link={ {text:"View Post", to:`/posts/${post.id}`}}/>
+							link={ {text:"View Post", to:`/posts/${post.id}`}}
+							author={<PostAuthor userId={post.user}/>}/>
 						)
 						) 
 					}

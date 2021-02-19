@@ -147,22 +147,32 @@ h3 {
 
 .post {
   flex-grow: 1;
-}
-.post h2 {
-  // font-size: calc(8px + 3vw / 2);
-  margin-right: 10px;
-  text-align: left;
-  font-weight: lighter;
-}
-.post h3 {
-  // font-size: calc(8px + 3vw / 2);
-  color: rgba(55, 182, 134, 1);
-  margin-right: 10px;
-  font-weight: lighter;
-}
-.post p {
-  // font-size: calc(5px + 3vw / 2);
-  font-weight: lighter;
+
+  & h2 {
+    // font-size: calc(8px + 3vw / 2);
+    margin-right: 10px;
+    margin-bottom: 0px;
+    text-align: left;
+    font-weight: lighter;
+  }
+  & h2:first-child {
+    display: inline;
+  }
+  & .author {
+    display: inline;
+  }
+
+  & h3 {
+    // font-size: calc(8px + 3vw / 2);
+    color: rgba(55, 182, 134, 1);
+    margin-right: 10px;
+    font-weight: lighter;
+  }
+
+  & p {
+    // font-size: calc(5px + 3vw / 2);
+    font-weight: lighter;
+  }
 }
 
 .post-content {
@@ -214,17 +224,24 @@ form button {
   text-align: center;
   height: calc(25px + 3vw / 2);
   width: calc(120px + 3vw / 2);
-}
 
-form button:after {
-  content: '';
-}
+  &:after {
+    content: '';
+  }
 
-form button:hover,
-button:focus {
-  outline: none;
-  background: rgba(55, 182, 134, 1);
-  color: #fff;
+  &:hover,
+  &:focus {
+    outline: none;
+    background: rgba(55, 182, 134, 1);
+    color: #fff;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    border: 2px solid rgb(212, 206, 206);
+    color: rgb(155, 155, 155);
+    box-shadow: unset;
+  }
 }
 
 form input:focus,
@@ -298,33 +315,42 @@ textarea:focus {
   display: flex;
   justify-content: space-around;
   height: fit-content;
-}
 
-.card a {
-  // font-size: calc(8px + 3vw / 2);
-  color: rgba(0, 0, 0, 0.75);
-  margin: 10px 0px 10px;
-  background: white;
-  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
-  border: 2px solid rgb(51, 51, 51);
-  border-radius: 5px;
-  padding: 5px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  height: calc(25px + 3vw / 2);
-  width: calc(120px + 3vw / 2);
-}
+  & a {
+    // font-size: calc(8px + 3vw / 2);
+    color: rgba(0, 0, 0, 0.75);
+    margin: 10px 0px 10px;
+    background: white;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgb(51, 51, 51);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    height: calc(25px + 3vw / 2);
+    width: calc(120px + 3vw / 2);
+  }
 
-.card a:after {
-  content: '';
-}
+  & a:after {
+    content: '';
+  }
 
-.card a:hover,
-a:focus {
-  outline: none;
-  background: rgba(55, 182, 134, 1);
-  color: #fff;
+  & a:hover,
+  a:focus {
+    outline: none;
+    background: rgba(55, 182, 134, 1);
+    color: #fff;
+  }
+
+  & h3:first-child {
+    margin: 0px;
+  }
+
+  & .author {
+    font-style: italic;
+    font-size: smaller;
+  }
 }
 
 @media (max-width: 992px) {

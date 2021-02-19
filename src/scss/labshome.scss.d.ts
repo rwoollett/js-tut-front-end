@@ -1,5 +1,6 @@
 declare namespace LabshomeScssNamespace {
   export interface ILabshomeScss {
+    author: string;
     banner: string;
     card: string;
     container: string;
