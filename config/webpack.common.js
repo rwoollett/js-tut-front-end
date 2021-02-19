@@ -3,29 +3,11 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { allowedNodeEnvironmentFlags } = require('process');
+//const { allowedNodeEnvironmentFlags } = require('process');
 
 module.exports = {
     entry: {
       app: [path.resolve(__dirname, '../src/index.tsx')]
-    },
-    output: {
-      filename: '[name].[contenthash].bundle.js',
-      chunkFilename: '[name].bundle.js',
-      path: path.resolve(__dirname, '../dist'),
-      publicPath: '/'
-    },
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
-        cacheGroups: {
-          defaultVendor: {
-            test: /[\\/]node_modules[\\/]/,
-            priority: -10,
-            reuseExistingChunk: true
-          }
-        },
-      },
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
@@ -45,10 +27,6 @@ module.exports = {
           exclude: /node_modules/,
           use: ['babel-loader'],
         },
-        { test: /\.tsx?$/, 
-          exclude: /dist/,
-          use: [{ loader: 'ts-loader', options: { transpileOnly: true}}]
-        },
         { 
           test: /\.s?css$/,
           include: path.join(__dirname, '../src/scss'),
@@ -67,7 +45,6 @@ module.exports = {
         }
       ],
     },
-    devtool: 'source-map',
     plugins: [
       new CleanWebpackPlugin({ dry: false }),
       new MiniCssExtractPlugin({

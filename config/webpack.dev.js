@@ -1,10 +1,16 @@
 const path = require('path');
 const {merge} = require('webpack-merge');
 const commonConfig = require('./webpack.common');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const devConfig = {
   mode: 'development',
+  output: {
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/'
+  },
+  devtool: 'source-map',
   devServer: {
     contentBase: path.resolve(__dirname, '../dist'),
     hot: true,
@@ -16,8 +22,15 @@ const devConfig = {
     },
     publicPath: '/'
   },
+  module: {
+    rules: [
+      { test: /\.tsx?$/, 
+        exclude: /node_modules/,
+        use: [{ loader: 'ts-loader', options: { transpileOnly: true}}]
+      }
+    ]
+  },
   plugins: [
-    //new BundleAnalyzerPlugin()
   ]
 };
 

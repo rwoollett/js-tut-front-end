@@ -15,7 +15,8 @@ import PostsComponent from './PostsComponent';
 //   Component.preload = factory;
 //   return Component;
 // }
-const HomeNavigation = lazy(() => import('./HomeNavigation'));
+const HomeNavigation = lazy(() => import(
+  /* webpackChunkName: "hnav" */'./HomeNavigation'));
 //const PostsComponent = lazy(() => import('./PostsComponent'));
 
 
