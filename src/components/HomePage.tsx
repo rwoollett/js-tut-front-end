@@ -43,7 +43,7 @@ async function http<T>(request:RequestInfo): Promise<HttpResponse<T>>
   );
   try {
     response.parsedBody = await response.json();
-  } catch (ex) {}
+  } catch (ex) {console.log(ex);}
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -102,7 +102,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
     const {title, description, navCards, popularCards, isFetching} = this.state;
     return (
         isFetching ? 
-         <div>'Fetching home page ...'</div> : 
+         <div>Fetching home page ...</div> : 
          <div><Banner title={title} desc={description}/>
           <div className={style.container}>
             <Suspense fallback={<div>Loading.....</div>}>

@@ -20,13 +20,11 @@ function PostsComponent(): JSX.Element {
 				<div className={styles['posts-list']}>
 					{
 						posts.map( (post):JSX.Element => 
-							(
-								<Card 
-								  key={post.id} 
-									title={post.title} 
-									catchPhrase={post.content.substring(0, 100)}
-									link={ {text:"View Post", to:`/posts/${post.id}`}}/>
-							)
+						(
+							<Card key={post.id}	title={post.title} 
+							catchPhrase={post.content.substring(0, 100)} 
+							link={ {text:"View Post", to:`/posts/${post.id}`}}/>
+						)
 						) 
 					}
 			</div>

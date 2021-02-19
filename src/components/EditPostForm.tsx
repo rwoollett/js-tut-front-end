@@ -4,8 +4,13 @@ import { useHistory } from 'react-router-dom';
 import { useTypedSelector } from '../features/rootReducer';
 import { postUpdated } from '../features/posts/postsSlice';
 import style from '../scss/labshome.scss';
+import PropTypes from 'prop-types';
 
-const EditPostForm: React.FC<{match: {params:{postId:string}}}> = (
+interface MatchProps {
+  params: { postId: string }
+}
+
+const EditPostForm: React.FC<{match: MatchProps}> = (
     {match}) => {
 
   const { postId } = match.params;
@@ -56,6 +61,14 @@ const EditPostForm: React.FC<{match: {params:{postId:string}}}> = (
       </div>
     </div>
   );
+};
+
+EditPostForm.propTypes = {
+  match: PropTypes.exact( {
+    params: PropTypes.exact( {
+      postId: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired
 };
 
 export default EditPostForm;

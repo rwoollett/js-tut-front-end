@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../scss/labshome.scss';
 import Card, {CardProps} from './Card';
+import PropTypes from 'prop-types';
 
 const HomeNavigation: React.FC<{cards: CardProps[]}> = (
      {cards}): JSX.Element => {
@@ -14,6 +15,10 @@ const HomeNavigation: React.FC<{cards: CardProps[]}> = (
       ) 
     }
   </div>);
+};
+
+HomeNavigation.propTypes = {
+  cards: PropTypes.array.isRequired
 };
 
 export default HomeNavigation;

@@ -28,7 +28,10 @@ module.exports = {
       },
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js']
+      extensions: ['.ts', '.tsx', '.js'],
+      alias: {
+        components: path.resolve(__dirname, './src/components/')
+      }
     },
     module: {
       rules: [
@@ -37,9 +40,14 @@ module.exports = {
           type: 'asset/resource'
   
         },
-        { test: /\.tsx?$/, 
+        {
+          test: /\.js?$/,
           exclude: /node_modules/,
-          use: ['babel-loader', 'ts-loader' ]
+          use: ['babel-loader'],
+        },
+        { test: /\.tsx?$/, 
+          exclude: /dist/,
+          use: [{ loader: 'ts-loader', options: { transpileOnly: true}}]
         },
         { 
           test: /\.s?css$/,
