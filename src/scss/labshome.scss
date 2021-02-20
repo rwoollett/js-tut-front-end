@@ -29,8 +29,8 @@
 }
 $min_width: 320px;
 $max_width: 1200px;
-$min_font: 16px;
-$max_font: 24px;
+$min_font: 12px;
+$max_font: 20px;
 
 html {
   @include fluid-type($min_width, $max_width, $min_font, $max_font);
@@ -92,6 +92,37 @@ h3 {
   color: white;
 }
 
+a,
+button {
+  color: rgba(0, 0, 0, 0.75);
+  margin: 10px 0px 10px;
+  background: white;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgb(51, 51, 51);
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+
+  &:after {
+    content: '';
+  }
+
+  &:hover,
+  &:focus {
+    // outline: none;
+    background: rgba(55, 182, 134, 1);
+    color: #fff;
+  }
+}
+
+form input:focus,
+textarea:focus {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
 .container {
   width: calc(880px + 3vw / 2);
   margin: 0 auto;
@@ -129,24 +160,28 @@ h3 {
   margin-right: 10px;
 }
 
-.posts h2 {
-  // font-size: calc(8px + 3vw / 2);
-  margin-right: 10px;
-  font-weight: lighter;
-}
-.posts h3 {
-  // font-size: calc(8px + 3vw / 2);
-  color: rgba(55, 182, 134, 1);
-  margin-right: 10px;
-  font-weight: lighter;
-}
-.posts p {
-  // font-size: calc(5px + 3vw / 2);
-  font-weight: lighter;
-}
+.posts {
+  display: block;
 
+  & h2 {
+    // font-size: calc(8px + 3vw / 2);
+    margin-right: 10px;
+    font-weight: lighter;
+  }
+  & h3 {
+    // font-size: calc(8px + 3vw / 2);
+    color: rgba(55, 182, 134, 1);
+    margin-right: 10px;
+    font-weight: lighter;
+  }
+  & p {
+    // font-size: calc(5px + 3vw / 2);
+    font-weight: lighter;
+  }
+}
 .post {
   flex-grow: 1;
+  text-align: left;
 
   & h2 {
     // font-size: calc(8px + 3vw / 2);
@@ -185,65 +220,37 @@ h3 {
 .posts-content {
   display: flex;
   justify-content: space-between;
-}
 
-.posts-content form {
-  flex: 0 0 190px;
-}
-
-.posts-content label,
-input,
-select,
-textarea {
-  width: 100%;
-  color: rgba(0, 0, 0, 0.5);
-  margin: 10px 0px 10px;
-  height: calc(25px + 3vw / 2);
-}
-
-.posts-content textarea {
-  padding: 10px;
-  border-right: 1px solid;
-  /* resize  : none; */
-  overflow: auto;
-  height: calc(100px + 3vw / 2);
-}
-
-.posts-content label + textarea {
-  margin-top: 0px;
-}
-
-form button {
-  display: block;
-  // font-size: calc(8px + 3vw / 2);
-  color: rgba(0, 0, 0, 0.75);
-  margin: 10px 0px 10px;
-  background: white;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  border: 2px solid rgb(51, 51, 51);
-  border-radius: 5px;
-  padding: 5px;
-  cursor: pointer;
-  text-align: center;
-  height: calc(25px + 3vw / 2);
-  width: calc(120px + 3vw / 2);
-
-  &:after {
-    content: '';
+  & form {
+    flex: 0 0 190px;
   }
 
-  &:hover,
-  &:focus {
-    outline: none;
-    background: rgba(55, 182, 134, 1);
-    color: #fff;
+  & label,
+  input,
+  select,
+  textarea {
+    width: 100%;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 10px 0px 10px;
+    height: calc(25px + 3vw / 2);
   }
-}
 
-form input:focus,
-textarea:focus {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  & textarea {
+    padding: 10px;
+    border-right: 1px solid;
+    /* resize  : none; */
+    overflow: auto;
+    height: calc(100px + 3vw / 2);
+  }
+
+  & label + textarea {
+    margin-top: 0px;
+  }
+
+  & form button {
+    display: block;
+    width: 50%;
+  }
 }
 
 .posts-content .posts-list {
@@ -312,33 +319,6 @@ textarea:focus {
   justify-content: space-around;
   height: fit-content;
 
-  & a {
-    // font-size: calc(8px + 3vw / 2);
-    color: rgba(0, 0, 0, 0.75);
-    margin: 10px 0px 10px;
-    background: white;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-    border: 2px solid rgb(51, 51, 51);
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    height: calc(25px + 3vw / 2);
-    width: calc(120px + 3vw / 2);
-  }
-
-  & a:after {
-    content: '';
-  }
-
-  & a:hover,
-  a:focus {
-    outline: none;
-    background: rgba(55, 182, 134, 1);
-    color: #fff;
-  }
-
   & h3:first-child {
     margin: 0px;
   }
@@ -358,16 +338,19 @@ textarea:focus {
     justify-content: center;
   }
   & .reaction-button {
+    box-shadow: unset;
+    //border: 2px solid rgb(51, 51, 51);
+    border-radius: unset;
     flex: 0 1 35px;
     color: rgba(0, 0, 0, 0.75);
-    margin: 10px;
-    margin-top: 15px;
-    padding: 2px;
+    margin: 15px 1px 10px 1px;
+    padding: 4px 4px 4px 4px;
     background: white;
     border: 0px;
     cursor: pointer;
     text-align: center;
     height: auto;
+    font-size: smaller;
   }
 }
 

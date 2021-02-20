@@ -19,14 +19,14 @@ const AddPostForm: React.FC = () => {
       setUserId(e.target.value);
 
   const onSavePostClicked = () => {
-    if (title && content) {
+    if (title && content && userId) {
       dispatch(postAdded(title, content, userId));
       setTitle('');
       setContent('');
     }
   };
   
-  const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
+  //const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
 
   const usersOptions = users.map(user => (
     <option key={user.id} value={user.id}>
@@ -58,10 +58,10 @@ const AddPostForm: React.FC = () => {
           value={content}
           onChange={onContentChanged}
         />
-        {canSave ? <button type="button" 
+        <button type="button" 
           onClick={onSavePostClicked}>
           Save
-        </button>: ''}
+        </button>
       </form>
   );
 };
