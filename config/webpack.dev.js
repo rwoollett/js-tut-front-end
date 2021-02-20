@@ -20,7 +20,10 @@ const devConfig = {
         secure: false
         }
     },
-    publicPath: '/'
+    publicPath: '/',
+    historyApiFallback: {
+      index: '/index.html',
+    },
   },
   module: {
     rules: [

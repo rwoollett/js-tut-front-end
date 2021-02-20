@@ -67,7 +67,9 @@ const EditPostForm: React.FC<{match: MatchProps}> = (
             value={content}
             onChange={onContentChanged}
           />
-          <button type="button" onClick={onSavePostClicked}>Save</button>
+          <div className={style['button-container']}>
+            <button type="button" onClick={onSavePostClicked}>Save</button>
+          </div>
         </form>
       </div>
     </div>

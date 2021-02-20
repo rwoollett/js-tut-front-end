@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../features/rootReducer';
 import { postAdded } from '../features/posts/postsSlice';
+import style from '../scss/labshome.scss';
 
 const AddPostForm: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -58,10 +59,12 @@ const AddPostForm: React.FC = () => {
           value={content}
           onChange={onContentChanged}
         />
-        <button type="button" 
-          onClick={onSavePostClicked}>
-          Save
-        </button>
+        <div className={style['button-container']}>
+          <button type="button" 
+            onClick={onSavePostClicked}>
+            Save
+          </button>
+        </div>
       </form>
   );
 };

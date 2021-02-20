@@ -32,29 +32,28 @@ class App extends React.Component<AppProps, unknown> {
 
   render(): JSX.Element {
     return (
-      <div>
+      <React.Fragment>
         <Provider store={store}>
           <Router>
             <NavBar/>
-            <div>
-              <Switch>
-                <Route exact path="/" render={() => <HomePage/>}/>
-                <Route exact path="/posts/:postId" component={SinglePostPage} />
-                <Route exact path="/editPost/:postId" 
-                   component={EditPostForm} />
-                <Redirect to="/" />
-              </Switch>
-            </div>
+            <Switch>
+              <Route exact path="/" render={() => <HomePage/>}/>
+              <Route exact path="/posts/:postId" component={SinglePostPage} />
+              <Route exact path="/editPost/:postId" 
+                  component={EditPostForm} />
+              <Redirect to="/" />
+            </Switch>
             <div className={style.footer}>
               <div className={style.container}>
-                <p>The Javascript/Typescript laboratories. 
+                <p>The Javascript/ Typescript laboratories. 
                   Contact: Programming Laboratory.</p>
               </div>
             </div>
 
           </Router>
         </Provider>
-      </div>);
+      </React.Fragment>
+      );
   }
 }
 

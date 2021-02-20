@@ -31,8 +31,10 @@ const SinglePostPage: React.FC<{match: {params:{postId:string}}}> = (
         <PostAuthor userId={post.user}/>
         <TimeAgo timestamp={post.date}/>
         <p className={style["post-content"]}>{post.content}</p>
-        <Link to={`/editPost/${post.id}`}>Edit Post</Link>
         <ReactionButtons post={post}/>
+        <div className={style['button-container']}>
+          <Link to={`/editPost/${post.id}`}>Edit Post</Link>
+        </div>
       </div>
     </div>
   );

@@ -25,9 +25,11 @@ const Card = (
         { timeAgo ? timeAgo : '' }
         <p>{catchPhrase}</p>
         { reactEmoji ? reactEmoji : "" }
-        { link ? <Link to={link.to}>
+        <div className={style['button-container']}>
+          { link ? <Link to={link.to}>
             {link.text}
           </Link> : "" }
+        </div>
       </div>
    </div>);
 };

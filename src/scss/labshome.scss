@@ -29,8 +29,8 @@
 }
 $min_width: 320px;
 $max_width: 1200px;
-$min_font: 12px;
-$max_font: 20px;
+$min_font: 16px;
+$max_font: 24px;
 
 html {
   @include fluid-type($min_width, $max_width, $min_font, $max_font);
@@ -67,6 +67,12 @@ h3 {
   );
 }
 
+form input:focus,
+textarea:focus {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
 .navbar-minimal {
   height: 50px;
   background: white;
@@ -74,10 +80,11 @@ h3 {
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-.navbar-minimal img {
-  width: 40px;
-  height: 40px;
+
+  & img {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .banner {
@@ -92,35 +99,59 @@ h3 {
   color: white;
 }
 
-a,
-button {
-  color: rgba(0, 0, 0, 0.75);
-  margin: 10px 0px 10px;
-  background: white;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  border: 2px solid rgb(51, 51, 51);
-  border-radius: 5px;
-  padding: 5px;
-  cursor: pointer;
+.button-container {
+  display: block;
   text-align: center;
-  text-decoration: none;
 
-  &:after {
-    content: '';
+  & a,
+  button {
+    display: inline;
+    color: rgba(0, 0, 0, 0.75);
+    margin: auto;
+    background: white;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgb(51, 51, 51);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    width: 60px;
+    height: 35px;
+
+    &:after {
+      content: '';
+    }
+
+    &:hover,
+    &:focus {
+      outline: none;
+      background: rgba(55, 182, 134, 1);
+      color: #fff;
+    }
+
+    @media (max-width: 992px) {
+      & {
+        font-size: 20px;
+        height: 33px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      & {
+        font-size: 18px;
+        height: 31px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      & {
+        font-size: 16px;
+        height: 29px;
+      }
+    }
   }
-
-  &:hover,
-  &:focus {
-    // outline: none;
-    background: rgba(55, 182, 134, 1);
-    color: #fff;
-  }
-}
-
-form input:focus,
-textarea:focus {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
 }
 
 .container {
@@ -142,20 +173,18 @@ textarea:focus {
 }
 .home-nav p {
   color: rgba(0, 0, 0, 0.5);
-  // font-size: calc(6px + 3vw / 2);
 }
+
 .search-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
 .search-bar p {
-  // font-size: calc(5px + 3vw / 2);
   font-weight: lighter;
   margin-right: 10px;
 }
 .search-bar h2 {
-  // // font-size: calc(8px + 3vw / 2);
   font-weight: lighter;
   margin-right: 10px;
 }
@@ -164,18 +193,15 @@ textarea:focus {
   display: block;
 
   & h2 {
-    // font-size: calc(8px + 3vw / 2);
     margin-right: 10px;
     font-weight: lighter;
   }
   & h3 {
-    // font-size: calc(8px + 3vw / 2);
     color: rgba(55, 182, 134, 1);
     margin-right: 10px;
     font-weight: lighter;
   }
   & p {
-    // font-size: calc(5px + 3vw / 2);
     font-weight: lighter;
   }
 }
@@ -184,7 +210,6 @@ textarea:focus {
   text-align: left;
 
   & h2 {
-    // font-size: calc(8px + 3vw / 2);
     margin-right: 10px;
     margin-bottom: 0px;
     text-align: left;
@@ -201,14 +226,12 @@ textarea:focus {
   }
 
   & h3 {
-    // font-size: calc(8px + 3vw / 2);
     color: rgba(55, 182, 134, 1);
     margin-right: 10px;
     font-weight: lighter;
   }
 
   & p {
-    // font-size: calc(5px + 3vw / 2);
     font-weight: lighter;
   }
 }
@@ -246,11 +269,6 @@ textarea:focus {
   & label + textarea {
     margin-top: 0px;
   }
-
-  & form button {
-    display: block;
-    width: 50%;
-  }
 }
 
 .posts-content .posts-list {
@@ -262,11 +280,9 @@ textarea:focus {
 }
 
 .popular p {
-  // font-size: calc(5px + 3vw / 2);
   font-weight: lighter;
 }
 .popular h2 {
-  // font-size: calc(8px + 3vw / 2);
   font-weight: lighter;
 }
 
@@ -291,22 +307,19 @@ textarea:focus {
 .popular-labs h3 {
   color: rgba(55, 182, 134, 1);
   margin-bottom: 15px;
-  // font-size: calc(6px + 3vw / 2);
 }
 .popular-labs p {
   color: rgba(0, 0, 0, 0.5);
-  // font-size: calc(4px + 3vw / 2);
 }
 
 .footer {
   padding: calc(10px + 3vw / 2) 0px;
   color: white;
   background-color: rgba(80, 159, 183, 1);
-}
 
-.footer p {
-  color: rgba(255, 255, 255, 1);
-  // font-size: calc(1px + 3vw / 2);
+  & p {
+    color: rgba(255, 255, 255, 1);
+  }
 }
 
 .card {
@@ -338,9 +351,6 @@ textarea:focus {
     justify-content: center;
   }
   & .reaction-button {
-    box-shadow: unset;
-    //border: 2px solid rgb(51, 51, 51);
-    border-radius: unset;
     flex: 0 1 35px;
     color: rgba(0, 0, 0, 0.75);
     margin: 15px 1px 10px 1px;
@@ -351,6 +361,13 @@ textarea:focus {
     text-align: center;
     height: auto;
     font-size: smaller;
+
+    &:hover {
+      outline: 1px solid black;
+    }
+    &:focus {
+      outline: 1px solid rgba(55, 182, 134, 1);
+    }
   }
 }
 
