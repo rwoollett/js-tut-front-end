@@ -58,10 +58,10 @@ const AddPostForm: React.FC = () => {
           value={content}
           onChange={onContentChanged}
         />
-        <button type="button" 
-          onClick={onSavePostClicked} disabled={!canSave}>
+        {canSave ? <button type="button" 
+          onClick={onSavePostClicked}>
           Save
-        </button>
+        </button>: ''}
       </form>
   );
 };

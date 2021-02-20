@@ -26,7 +26,7 @@ const devConfig = {
     rules: [
       { test: /\.tsx?$/, 
         exclude: /node_modules/,
-        use: [{ loader: 'ts-loader', options: { transpileOnly: true}}]
+        use: [{ loader: 'ts-loader', options: { transpileOnly: false}}]
       }
     ]
   },

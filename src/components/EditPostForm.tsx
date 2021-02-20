@@ -20,6 +20,15 @@ const EditPostForm: React.FC<{match: MatchProps}> = (
 
   const [title, setTitle] = useState(post ? post?.title : "");
   const [content, setContent] = useState(post ? post?.content: "");
+  const user = post ? post?.user: "";
+  const date = post ? post?.date: "";
+  const reactions = post ? post?.reactions: {
+    thumbsUp: 0,
+    hooray: 0,
+    heart: 0,
+    rocket: 0,
+    eyes: 0
+  };
 
   const dispatch = useDispatch(); //Todo check TS
   const history = useHistory();
@@ -31,7 +40,9 @@ const EditPostForm: React.FC<{match: MatchProps}> = (
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(postUpdated({ id: postId, title, content, user: "" }));
+      dispatch(postUpdated({ 
+        id: postId, title, content, user, date, reactions
+      }));
       history.push(`/posts/${postId}`);
     }
   };

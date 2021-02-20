@@ -4,6 +4,8 @@ import style from '../scss/labshome.scss';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PostAuthor from './PostAuthor';
+import TimeAgo from './TimeAgo';
+import {ReactionButtons} from './ReactionButton';
 
 const SinglePostPage: React.FC<{match: {params:{postId:string}}}> = (
     {match}): JSX.Element => {
@@ -27,8 +29,10 @@ const SinglePostPage: React.FC<{match: {params:{postId:string}}}> = (
       <div className={style['post']}>
         <h2>{post.title}</h2>
         <PostAuthor userId={post.user}/>
+        <TimeAgo timestamp={post.date}/>
         <p className={style["post-content"]}>{post.content}</p>
         <Link to={`/editPost/${post.id}`}>Edit Post</Link>
+        <ReactionButtons post={post}/>
       </div>
     </div>
   );

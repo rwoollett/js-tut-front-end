@@ -1,12 +1,28 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { Post } from './types';
+import { Post, ReactPost } from './types';
+import { sub } from 'date-fns';
+import { ReactionCount } from '../types';
+
+const reactionEmojiCount:ReactionCount = {
+  thumbsUp: 0,
+  hooray: 0,
+  heart: 0,
+  rocket: 0,
+  eyes: 0
+};
 
 const initialState:Post[] = 
   [
-    { id: '1', title: 'First Post!', content: 'Hello!', user:'2' },
-    { id: '2', title: 'Second Post', content: 'More text', user:'2' },
-    { id: '3', title: 'Third Post', content: 'More text', user:'1' }
+    { id: '1', title: 'First Post!', content: 'Hello!', user:'2',
+     date:sub(new Date(), { minutes: 10 }).toISOString(),
+     reactions: reactionEmojiCount },
+    { id: '2', title: 'Second Post', content: 'More text', user:'2',
+     date:sub(new Date(), { minutes: 5 }).toISOString(),
+     reactions: reactionEmojiCount },
+    { id: '3', title: 'Third Post', content: 'More text', user:'1',
+     date:sub(new Date(), { minutes: 1 }).toISOString(),
+     reactions: reactionEmojiCount }
   ];
 
 // Warning on reducer immutabiliy:
@@ -24,17 +40,30 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
+    reactionAdded(state, action: PayloadAction<ReactPost>) {
+      const { postId, reaction } = action.payload;
+      const existingPost = state.find(post => post.id === postId);
+      if (existingPost) {
+        if (reaction === 'thumbsUp' || reaction === 'hooray' ||
+            reaction === 'heart' || reaction === 'rocket' ||
+            reaction === 'eyes'){
+          existingPost.reactions[reaction]++;
+        }
+      }
+    },
     postAdded: {
       reducer(state, action: PayloadAction<Post>) {
         state.push(action.payload);
       },
-      prepare(title: string, content: string, userId: string) {
+      prepare(title: string, content: string, user: string) {
         return {
           payload: {
             id: nanoid(),
+            date: new Date().toISOString(),
+            user,
             title,
             content,
-            user: userId
+            reactions: reactionEmojiCount
           }
         };
       }
@@ -50,6 +79,5 @@ export const postsSlice = createSlice({
   }
 });
 
-export const { postAdded, postUpdated } = postsSlice.actions;
-//export default postsSlice.reducer;
+export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions;
 export const { reducer } = postsSlice; 

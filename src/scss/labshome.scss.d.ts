@@ -15,7 +15,10 @@ declare namespace LabshomeScssNamespace {
     posts: string;
     "posts-content": string;
     "posts-list": string;
+    reaction: string;
+    "reaction-button": string;
     "search-bar": string;
+    timestamp: string;
     top: string;
   }
 }
