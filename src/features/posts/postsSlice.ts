@@ -2,9 +2,9 @@ import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Post, ReactPost } from './types';
 import { sub } from 'date-fns';
-import { ReactionCount } from '../types';
+import { ReactionEmojiCount } from '../types';
 
-const reactionEmojiCount:ReactionCount = {
+const reactionEmojiCount:ReactionEmojiCount = {
   thumbsUp: 0,
   hooray: 0,
   heart: 0,
@@ -44,11 +44,7 @@ export const postsSlice = createSlice({
       const { postId, reaction } = action.payload;
       const existingPost = state.find(post => post.id === postId);
       if (existingPost) {
-        if (reaction === 'thumbsUp' || reaction === 'hooray' ||
-            reaction === 'heart' || reaction === 'rocket' ||
-            reaction === 'eyes'){
-          existingPost.reactions[reaction]++;
-        }
+        existingPost.reactions[reaction]++;
       }
     },
     postAdded: {

@@ -1,4 +1,4 @@
-import { ReactionCount } from '../types';
+import { ReactionEmojiCount } from '../types';
 
 export interface Post {
   id: string;
@@ -6,7 +6,7 @@ export interface Post {
   title: string;
   content: string;
   user: string;
-  reactions: ReactionCount;
+  reactions: ReactionEmojiCount;
 }
 
 export interface ReactPost {

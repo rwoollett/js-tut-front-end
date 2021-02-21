@@ -14,7 +14,6 @@ const reactionEmoji:ReactionEmoji = {
 };
 
 export const ReactionButtons = ({ post }: {post:Post}):JSX.Element => {
-  const postCounts = Object.entries(post.reactions);
   const dispatch = useDispatch();
   const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => {
     return (
@@ -26,12 +25,7 @@ export const ReactionButtons = ({ post }: {post:Post}):JSX.Element => {
             reaction: name
           }))
         }>
-        {emoji}&nbsp; 
-        { postCounts.map(([pname, ctr]) => {
-          if (pname === name) {
-            return ctr;
-          }
-        })}
+        {emoji}&nbsp;{post.reactions[name]} 
       </button>
     );
   });
