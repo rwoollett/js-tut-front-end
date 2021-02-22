@@ -1,7 +1,5 @@
-import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Post, ReactPost, PostsState } from './types';
-import { ReactionEmojiCount } from '../types';
 import { client } from '../../api/client';
 
 // Warning on reducer immutabiliy:
@@ -16,47 +14,54 @@ import { client } from '../../api/client';
 // CreateSlice lets us define a "prepare callback" 
 // function for action.payload
 
-const reactionEmojiCount:ReactionEmojiCount = {
-  thumbsUp: 0,
-  hooray: 0,
-  heart: 0,
-  rocket: 0,
-  eyes: 0
-};
-
-const initialState:PostsState = 
+const initialState = 
   {
     entries: [],
     status: 'idle',
     error: undefined
-};
+} as PostsState;
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () =>  {
-  const response = await client.get('/fakeApi/posts');
-  return response.posts;
+export const fetchPosts = createAsyncThunk(
+  'posts/fetchPosts', 
+  async () =>  {
+    const response = await client.get('/fakeApi/posts');
+    return await response.posts;
 });
+
+export const addNewPost = createAsyncThunk(
+  'posts/addNewPost',
+  // The payload creator receives the partial `{title, content, user}` object
+  async ({title, content, user}: 
+      {title: string, content: string, user: string}) => {
+    // We send the initial data to the fake API server
+    const response = await client.post('/fakeApi/posts', 
+      { post: {title, content, user} });
+    // The response includes the complete post object, including unique ID
+    return response.post;
+  }
+);
 
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postAdded: {
-      reducer(state, action: PayloadAction<Post>) {
-        state.entries.push(action.payload);
-      },
-      prepare(title: string, content: string, user: string) {
-        return {
-          payload: {
-            id: nanoid(),
-            date: new Date().toISOString(),
-            user,
-            title,
-            content,
-            reactions: reactionEmojiCount
-          }
-        };
-      }
-    },
+    // postAdded: {
+    //   reducer(state, action: PayloadAction<Post>) {
+    //     state.entries.push(action.payload);
+    //   },
+    //   prepare(title: string, content: string, user: string) {
+    //     return {
+    //       payload: {
+    //         id: nanoid(),
+    //         date: new Date().toISOString(),
+    //         user,
+    //         title,
+    //         content,
+    //         reactions: reactionEmojiCount
+    //       }
+    //     };
+    //   }
+    // },
     reactionAdded(state, action: PayloadAction<ReactPost>) {
       const { postId, reaction } = action.payload;
       const existingPost = state.entries.find(post => post.id === postId);
@@ -84,9 +89,12 @@ export const postsSlice = createSlice({
     builder.addCase(fetchPosts.rejected, (state, action) => {
       state.status = 'failed';
       state.error = action.error.message;
+    }),
+    builder.addCase(addNewPost.fulfilled, (state, action) => {
+      state.entries.push(action.payload);
     });
   }
 });
 
-export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions;
+export const { postUpdated, reactionAdded } = postsSlice.actions;
 export const { reducer } = postsSlice; 

@@ -5,8 +5,6 @@ import SinglePostPage  from './components/SinglePostPage';
 import EditPostForm  from './components/EditPostForm';
 import NavBar from './components/NavBar';
 import style from './scss/labshome.scss';
-import { client } from './api/client';
-import { Post } from './features/posts/types';
 
 import {
   BrowserRouter as Router,
@@ -14,8 +12,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import store from './store/store';
-import { Provider } from 'react-redux';
+
 
 interface AppProps {
   title: string;
@@ -32,41 +29,26 @@ class App extends React.Component<AppProps, unknown> {
     super(props);
   }
 
-  componentDidMount() {
-    const postsReq = this.getPosts();
-    postsReq.then((posts: Post[]) => {
-      console.log('posts', posts);
-    });
-  }
-
-  async getPosts() {
-    const response = await client.get('/fakeApi/posts');
-    return response.posts;
-  }
-
   render(): JSX.Element {
 
     return (
       <React.Fragment>
-        <Provider store={store}>
-          <Router>
-            <NavBar/>
-            <Switch>
-              <Route exact path="/" render={() => <HomePage/>}/>
-              <Route exact path="/posts/:postId" component={SinglePostPage} />
-              <Route exact path="/editPost/:postId" 
-                  component={EditPostForm} />
-              <Redirect to="/" />
-            </Switch>
-            <div className={style.footer}>
-              <div className={style.container}>
-                <p>The Javascript/ Typescript laboratories. 
-                  Contact: Programming Laboratory.</p>
-              </div>
+        <Router>
+          <NavBar/>
+          <Switch>
+            <Route exact path="/" render={() => <HomePage/>}/>
+            <Route exact path="/posts/:postId" component={SinglePostPage} />
+            <Route exact path="/editPost/:postId" 
+                component={EditPostForm} />
+            <Redirect to="/" />
+          </Switch>
+          <div className={style.footer}>
+            <div className={style.container}>
+              <p>The Javascript/ Typescript laboratories. 
+                Contact: Programming Laboratory.</p>
             </div>
-
-          </Router>
-        </Provider>
+          </div>
+        </Router>
       </React.Fragment>
       );
   }

@@ -1,19 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
-//import { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { client } from '../../api/client';
 import { User } from './types';
 
-const initialState:User[] = 
-  [
-    { id: '0', name: 'Tianna Jenkins' },
-    { id: '1', name: 'Kevin Grant' },
-    { id: '2', name: 'Madison Price' }
-  ];
+
+const initialState:User[] = [];
+
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
+  const response = await client.get('/fakeApi/users');
+  return response.users;
+});
 
   // Warning immutability is obtained with createSclide of RDK
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      //state.fill(action.payload);
+      return action.payload;
+    });
   }
 });
 

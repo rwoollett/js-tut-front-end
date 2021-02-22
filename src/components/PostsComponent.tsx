@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-//import loadable from '@babel/plugin-syntax-dynamic-import';
 import styles from '../scss/labshome.scss';
 import { selectAllPosts } from '../features/rootReducer';
 import { useTypedSelector } from '../features/rootReducer';
@@ -10,10 +9,6 @@ import AddPostForm from './AddPostForm';
 import PostAuthor from './PostAuthor';
 import TimeAgo from './TimeAgo';
 import { ReactionButtons } from './ReactionButton';
-
-// const AddPostForm = loadable(() => import("./AddPostForm"), {
-//   fallback: <p>Waiting..</p>
-// });
 
 function PostsComponent(): JSX.Element {
 	const dispatch = useDispatch();
