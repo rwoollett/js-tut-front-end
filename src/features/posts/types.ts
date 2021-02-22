@@ -1,4 +1,5 @@
 import { ReactionEmojiCount } from '../types';
+import '../types';
 
 export interface Post {
   id: string;

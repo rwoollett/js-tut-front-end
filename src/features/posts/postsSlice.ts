@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Post, ReactPost, PostsState } from './types';
+import './types';
 import { client } from '../../api/client';
 
 // Warning on reducer immutabiliy:
@@ -37,6 +38,7 @@ export const addNewPost = createAsyncThunk(
     const response = await client.post('/fakeApi/posts', 
       { post: {title, content, user} });
     // The response includes the complete post object, including unique ID
+    console.log('Response post:', response.post, typeof response.post);
     return response.post;
   }
 );
