@@ -85,7 +85,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
         });
       }
     } catch (response) {
-      console.log("Error", response);
+      //console.log("Error", response);
       const {title, description, navCards, popularCards} 
            = homepage.homepage;
       this.setState({

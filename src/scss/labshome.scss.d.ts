@@ -7,6 +7,8 @@ declare namespace LabshomeScssNamespace {
     container: string;
     footer: string;
     "home-nav": string;
+    load3: string;
+    loader: string;
     "navbar-minimal": string;
     next: string;
     popular: string;

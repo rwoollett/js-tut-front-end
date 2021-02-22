@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { useTypedSelector } from '../features/rootReducer';
+import { selectedPostById, useTypedSelector } from '../features/rootReducer';
 import { postUpdated } from '../features/posts/postsSlice';
 import style from '../scss/labshome.scss';
 import PropTypes from 'prop-types';
@@ -15,8 +15,7 @@ const EditPostForm: React.FC<{match: MatchProps}> = (
 
   const { postId } = match.params;
 
-  const post = useTypedSelector(state => 
-    state.posts.find(post => post.id === postId));
+  const post = useTypedSelector(state => selectedPostById(state, postId));
 
   const [title, setTitle] = useState(post ? post?.title : "");
   const [content, setContent] = useState(post ? post?.content: "");

@@ -14,6 +14,8 @@ export interface ReactPost {
   reaction: string;
 }
 
-export interface PostState {
-  posts: Post[]
+export interface PostsState {
+  entries: Post[];
+  status: 'idle'|'loading'|'succeeded'|'failed';
+  error: string | undefined;
 }

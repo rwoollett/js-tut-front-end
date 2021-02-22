@@ -1,29 +1,8 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { Post, ReactPost } from './types';
-import { sub } from 'date-fns';
+import { Post, ReactPost, PostsState } from './types';
 import { ReactionEmojiCount } from '../types';
-
-const reactionEmojiCount:ReactionEmojiCount = {
-  thumbsUp: 0,
-  hooray: 0,
-  heart: 0,
-  rocket: 0,
-  eyes: 0
-};
-
-const initialState:Post[] = 
-  [
-    { id: '1', title: 'First Post!', content: 'Hello!', user:'2',
-     date:sub(new Date(), { minutes: 10 }).toISOString(),
-     reactions: reactionEmojiCount },
-    { id: '2', title: 'Second Post', content: 'More text', user:'2',
-     date:sub(new Date(), { minutes: 5 }).toISOString(),
-     reactions: reactionEmojiCount },
-    { id: '3', title: 'Third Post', content: 'More text', user:'1',
-     date:sub(new Date(), { minutes: 1 }).toISOString(),
-     reactions: reactionEmojiCount }
-  ];
+import { client } from '../../api/client';
 
 // Warning on reducer immutabiliy:
 // Using createSlice its "Safe" to call mutating functions like
@@ -36,20 +15,34 @@ const initialState:Post[] =
 // eg. Post is the payload for postAdded
 // CreateSlice lets us define a "prepare callback" 
 // function for action.payload
+
+const reactionEmojiCount:ReactionEmojiCount = {
+  thumbsUp: 0,
+  hooray: 0,
+  heart: 0,
+  rocket: 0,
+  eyes: 0
+};
+
+const initialState:PostsState = 
+  {
+    entries: [],
+    status: 'idle',
+    error: undefined
+};
+
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () =>  {
+  const response = await client.get('/fakeApi/posts');
+  return response.posts;
+});
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    reactionAdded(state, action: PayloadAction<ReactPost>) {
-      const { postId, reaction } = action.payload;
-      const existingPost = state.find(post => post.id === postId);
-      if (existingPost) {
-        existingPost.reactions[reaction]++;
-      }
-    },
     postAdded: {
       reducer(state, action: PayloadAction<Post>) {
-        state.push(action.payload);
+        state.entries.push(action.payload);
       },
       prepare(title: string, content: string, user: string) {
         return {
@@ -64,14 +57,34 @@ export const postsSlice = createSlice({
         };
       }
     },
+    reactionAdded(state, action: PayloadAction<ReactPost>) {
+      const { postId, reaction } = action.payload;
+      const existingPost = state.entries.find(post => post.id === postId);
+      if (existingPost) {
+        existingPost.reactions[reaction]++;
+      }
+    },
     postUpdated(state, action: PayloadAction<Post>) {
       const { id, title, content } = action.payload;
-      const existingPost = state.find(post => post.id === id);
+      const existingPost = state.entries.find(post => post.id === id);
       if (existingPost) {
         existingPost.title = title;
         existingPost.content = content;
       }
     }
+  },
+  extraReducers: builder => {
+    builder.addCase(fetchPosts.pending, state => {
+      state.status = 'loading';
+    }),
+    builder.addCase(fetchPosts.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      state.entries = state.entries.concat(action.payload);
+    }),
+    builder.addCase(fetchPosts.rejected, (state, action) => {
+      state.status = 'failed';
+      state.error = action.error.message;
+    });
   }
 });
 

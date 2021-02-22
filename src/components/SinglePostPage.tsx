@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTypedSelector } from '../features/rootReducer';
+import { selectedPostById, useTypedSelector } from '../features/rootReducer';
 import style from '../scss/labshome.scss';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -12,9 +12,7 @@ const SinglePostPage: React.FC<{match: {params:{postId:string}}}> = (
       
   const { postId } = match.params;
 
-  const post = useTypedSelector(state =>
-    state.posts.find(post => post.id === postId)
-  );
+  const post = useTypedSelector(state => selectedPostById(state, postId));
 
   if (!post) {
     return (

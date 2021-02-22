@@ -5,6 +5,8 @@ import SinglePostPage  from './components/SinglePostPage';
 import EditPostForm  from './components/EditPostForm';
 import NavBar from './components/NavBar';
 import style from './scss/labshome.scss';
+import { client } from './api/client';
+import { Post } from './features/posts/types';
 
 import {
   BrowserRouter as Router,
@@ -30,7 +32,20 @@ class App extends React.Component<AppProps, unknown> {
     super(props);
   }
 
+  componentDidMount() {
+    const postsReq = this.getPosts();
+    postsReq.then((posts: Post[]) => {
+      console.log('posts', posts);
+    });
+  }
+
+  async getPosts() {
+    const response = await client.get('/fakeApi/posts');
+    return response.posts;
+  }
+
   render(): JSX.Element {
+
     return (
       <React.Fragment>
         <Provider store={store}>
