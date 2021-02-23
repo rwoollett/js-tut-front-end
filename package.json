@@ -67,6 +67,7 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
+    "core-js": "^3.9.0",
     "faker": "^5.4.0",
     "miragejs": "^0.1.41",
     "react": "^17.0.1",

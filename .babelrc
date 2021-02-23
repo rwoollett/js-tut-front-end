@@ -1,6 +1,12 @@
 {
   "presets": [
-    ["@babel/preset-env", { "modules": false}],
+    ["@babel/preset-env", { 
+      "modules": "auto",
+      "targets": [">0.25%", "not ie 11"],
+      "debug": true,
+      "useBuiltIns": "usage",
+      "corejs": 3
+      }],
     "@babel/preset-typescript",
     "@babel/preset-react" 
   ],
