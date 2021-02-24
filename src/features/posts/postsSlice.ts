@@ -113,6 +113,7 @@ export const selectedPostById = (
     state.posts.entries.find(post => post.id === postId);
 
 export const selectPostsByUser = createSelector(
-  [selectAllPosts, (_:CombinedState<{ posts: PostsState;}>, userId:string) => userId],
+  [selectAllPosts, 
+    (_:CombinedState<{ posts: PostsState;}>, userId:string) => userId],
   (posts, userId) => posts.filter(post => post.user === userId)
-)  
+);  

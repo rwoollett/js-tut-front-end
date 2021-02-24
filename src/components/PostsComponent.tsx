@@ -1,14 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import styles from '../scss/labshome.scss';
 import { selectAllPosts } from '../features/posts/postsSlice';
 import { useTypedSelector } from '../features/rootReducer';
 import { fetchPosts } from '../features/posts/postsSlice';
 import { useDispatch } from 'react-redux';
-import Card from './Card';
 import AddPostForm from './AddPostForm';
 import PostAuthor from './PostAuthor';
 import TimeAgo from './TimeAgo';
 import { ReactionButtons } from './ReactionButton';
+import { Post } from '../features/posts/types';
+import { Link } from 'react-router-dom';
+//import PropTypes from 'prop-types';
+
+interface ExcerptProps {
+  post: Post;
+}
+ 
+let PostExcerpt: React.FC<ExcerptProps> = ({ post }: {post:Post}) => {
+  return (
+		<div className={styles.card}>
+			<div>
+				<h3>{post.title}</h3>
+				<PostAuthor userId={post.user} />
+        <TimeAgo timestamp={post.date} />
+				<p>{post.content.substring(0, 100)}</p>
+				<ReactionButtons post={post} />
+				<div className={styles['button-container']}>
+					<Link to={`/posts/${post.id}`} className="button muted-button">
+						View Post
+					</Link>				
+				</div>
+			</div>
+	</div>
+  );
+};
+
+PostExcerpt = memo(PostExcerpt);
 
 function PostsComponent(): JSX.Element {
 	const dispatch = useDispatch();
@@ -34,13 +61,7 @@ function PostsComponent(): JSX.Element {
 
     content = orderedPosts.map( (post):JSX.Element => 
 		(
-			<Card key={post.id}	title={post.title} 
-			catchPhrase={post.content.substring(0, 100)} 
-			link={ {text:"View Post", to:`/posts/${post.id}`}}
-			author={<PostAuthor userId={post.user}/>}
-			timeAgo={<TimeAgo timestamp={post.date}/>}
-			reactEmoji={<ReactionButtons post={post}/>}
-			/>
+			<PostExcerpt key={post.id} post={post}/>
 		));
 
 	} else if (postStatus === 'failed') {
