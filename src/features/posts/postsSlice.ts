@@ -1,7 +1,10 @@
-import { PayloadAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { PayloadAction, 
+         createSlice, 
+         createAsyncThunk,
+        createSelector } from '@reduxjs/toolkit';
 import { Post, ReactPost, PostsState } from './types';
-import './types';
 import { client } from '../../api/client';
+import { CombinedState } from 'redux';
 
 // Warning on reducer immutabiliy:
 // Using createSlice its "Safe" to call mutating functions like
@@ -100,3 +103,16 @@ export const postsSlice = createSlice({
 
 export const { postUpdated, reactionAdded } = postsSlice.actions;
 export const { reducer } = postsSlice; 
+
+// Posts selectors
+export const selectAllPosts = (
+  state:CombinedState<{ posts: PostsState;}>):Post[] => state.posts.entries;
+
+export const selectedPostById = (
+  state:CombinedState<{ posts: PostsState;}>, postId:string):Post|undefined => 
+    state.posts.entries.find(post => post.id === postId);
+
+export const selectPostsByUser = createSelector(
+  [selectAllPosts, (_:CombinedState<{ posts: PostsState;}>, userId:string) => userId],
+  (posts, userId) => posts.filter(post => post.user === userId)
+)  

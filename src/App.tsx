@@ -3,6 +3,10 @@ import React from 'react';
 import HomePage from './components/HomePage';
 import SinglePostPage  from './components/SinglePostPage';
 import EditPostForm  from './components/EditPostForm';
+import UsersList from './components/UsersList';
+import UserPage from './components/UserPage';
+import NotificationsList from  './components/NotificationsList';
+
 import NavBar from './components/NavBar';
 import style from './scss/labshome.scss';
 
@@ -40,6 +44,9 @@ class App extends React.Component<AppProps, unknown> {
             <Route exact path="/posts/:postId" component={SinglePostPage} />
             <Route exact path="/editPost/:postId" 
                 component={EditPostForm} />
+            <Route exact path="/users" component={UsersList} />
+            <Route exact path="/users/:userId" component={UserPage} />
+            <Route exact path="/notifications" component={NotificationsList} />
             <Redirect to="/" />
           </Switch>
           <div className={style.footer}>

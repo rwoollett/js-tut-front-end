@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { selectedPostById, useTypedSelector } from '../features/rootReducer';
+import { useTypedSelector } from '../features/rootReducer';
+import {selectedPostById } from '../features/posts/postsSlice';
 import { postUpdated } from '../features/posts/postsSlice';
 import style from '../scss/labshome.scss';
 import PropTypes from 'prop-types';

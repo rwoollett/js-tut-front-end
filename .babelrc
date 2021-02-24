@@ -3,7 +3,7 @@
     ["@babel/preset-env", { 
       "modules": "auto",
       "targets": [">0.25%", "not ie 11"],
-      "debug": true,
+      "debug": false,
       "useBuiltIns": "usage",
       "corejs": 3
       }],

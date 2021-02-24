@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { client } from '../../api/client';
 import { User } from './types';
+import { CombinedState } from 'redux';
 
 
 const initialState:User[] = [];
@@ -26,3 +27,12 @@ export const usersSlice = createSlice({
 //export const { postAdded, postUpdated } = usersSlice.actions;
 //export default usersSlice.reducer;
 export const { reducer } = usersSlice; 
+
+  // Users selectors
+  export const selectAllUsers = (
+    state:CombinedState<{ users: User[];}>):User[] => state.users;
+
+  export const selectUserById = (
+    state:CombinedState<{ users: User[];}>, userId:string):User|undefined =>
+      state.users.find(user => user.id === userId);
+  

@@ -1,16 +1,20 @@
 declare namespace LabshomeScssNamespace {
   export interface ILabshomeScss {
     author: string;
+    badge: string;
     banner: string;
     "button-container": string;
     card: string;
     container: string;
     footer: string;
     "home-nav": string;
+    "is-new": string;
     load3: string;
     loader: string;
     "navbar-minimal": string;
     next: string;
+    notification: string;
+    "notifications-list": string;
     popular: string;
     "popular-labs": string;
     post: string;
@@ -23,6 +27,8 @@ declare namespace LabshomeScssNamespace {
     "search-bar": string;
     timestamp: string;
     top: string;
+    "user-card": string;
+    users: string;
   }
 }
 

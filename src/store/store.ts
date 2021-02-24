@@ -7,6 +7,7 @@ const store = configureStore({
 
 export default store;
 export type AppDispatch = typeof store.dispatch;
+export type AppGetState = typeof store.getState;
 
 
 //import { createStore, applyMiddleware } from 'redux';

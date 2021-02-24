@@ -1,5 +1,6 @@
 import React from 'react';
-import { selectedPostById, useTypedSelector } from '../features/rootReducer';
+import {  useTypedSelector } from '../features/rootReducer';
+import { selectedPostById} from '../features/posts/postsSlice';
 import style from '../scss/labshome.scss';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';

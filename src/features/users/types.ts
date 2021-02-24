@@ -3,6 +3,6 @@ export interface User {
   name: string;
 }
 
-export interface PostState {
-  users: User[]
-}
+// export interface PostState {
+//   users: User[]
+// }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from '../scss/labshome.scss';
-import { selectAllPosts } from '../features/rootReducer';
+import { selectAllPosts } from '../features/posts/postsSlice';
 import { useTypedSelector } from '../features/rootReducer';
 import { fetchPosts } from '../features/posts/postsSlice';
 import { useDispatch } from 'react-redux';
