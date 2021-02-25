@@ -1,29 +1,25 @@
 import { PayloadAction, 
          createSlice, 
          createAsyncThunk,
-        createSelector } from '@reduxjs/toolkit';
-import { Post, ReactPost, PostsState } from './types';
+        createSelector,
+        createEntityAdapter,
+        EntityState } from '@reduxjs/toolkit';
+import { Post, ReactPost } from './types';
 import { client } from '../../api/client';
 import { CombinedState } from 'redux';
 
-// Warning on reducer immutabiliy:
-// Using createSlice its "Safe" to call mutating functions like
-//  Array.push() or modify object fields like 
-//  state.someField = someValue inside of createSlice()
+// Entity adaptor for normalised posts structure; ids end entities.
+const postsAdapter = createEntityAdapter<Post>({
+  selectId: post => post.id,
+  sortComparer: (a, b) => b.date.localeCompare(a.date)
+});
 
-// The reducer object of actions uses PayloadAction<..> to explicit
-// declare the actions. name of action is the type is:
-// slice name/action method name.
-// eg. Post is the payload for postAdded
-// CreateSlice lets us define a "prepare callback" 
-// function for action.payload
-
-const initialState = 
-  {
-    entries: [],
-    status: 'idle',
-    error: undefined
-} as PostsState;
+interface PostAdaptorProp {
+  status: string; 
+  error?: string
+}
+const initialState = postsAdapter.getInitialState(
+  { status: 'idle' } as PostAdaptorProp);
 
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts', 
@@ -46,58 +42,44 @@ export const addNewPost = createAsyncThunk(
   }
 );
 
+// Warning on reducer immutabiliy:
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    // postAdded: {
-    //   reducer(state, action: PayloadAction<Post>) {
-    //     state.entries.push(action.payload);
-    //   },
-    //   prepare(title: string, content: string, user: string) {
-    //     return {
-    //       payload: {
-    //         id: nanoid(),
-    //         date: new Date().toISOString(),
-    //         user,
-    //         title,
-    //         content,
-    //         reactions: reactionEmojiCount
-    //       }
-    //     };
-    //   }
-    // },
     reactionAdded(state, action: PayloadAction<ReactPost>) {
       const { postId, reaction } = action.payload;
-      const existingPost = state.entries.find(post => post.id === postId);
+      const existingPost = state.entities[postId];
       if (existingPost) {
+        // immer functionality for immutability
         existingPost.reactions[reaction]++;
       }
     },
     postUpdated(state, action: PayloadAction<Post>) {
       const { id, title, content } = action.payload;
-      const existingPost = state.entries.find(post => post.id === id);
+      const existingPost = state.entities[id];
       if (existingPost) {
+        // immer functionality for immutability
         existingPost.title = title;
         existingPost.content = content;
       }
     }
   },
   extraReducers: builder => {
-    builder.addCase(fetchPosts.pending, state => {
+    builder.addCase(fetchPosts.pending, (state, _action) => {
       state.status = 'loading';
     }),
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.status = 'succeeded';
-      state.entries = state.entries.concat(action.payload);
+      // Add any fetched posts to the array
+      // Use the `upsertMany` reducer as a mutating update utility
+      postsAdapter.upsertMany(state, action.payload);
     }),
     builder.addCase(fetchPosts.rejected, (state, action) => {
       state.status = 'failed';
       state.error = action.error.message;
     }),
-    builder.addCase(addNewPost.fulfilled, (state, action) => {
-      state.entries.push(action.payload);
-    });
+    builder.addCase(addNewPost.fulfilled, postsAdapter.addOne);
   }
 });
 
@@ -105,15 +87,19 @@ export const { postUpdated, reactionAdded } = postsSlice.actions;
 export const { reducer } = postsSlice; 
 
 // Posts selectors
-export const selectAllPosts = (
-  state:CombinedState<{ posts: PostsState;}>):Post[] => state.posts.entries;
+type CS = CombinedState<{ 
+  posts: EntityState<Post> & PostAdaptorProp;}>;
 
-export const selectedPostById = (
-  state:CombinedState<{ posts: PostsState;}>, postId:string):Post|undefined => 
-    state.posts.entries.find(post => post.id === postId);
+  // Export the customized selectors for this adapter using `getSelectors`
+export const {
+  selectAll: selectAllPosts,
+  selectById: selectPostById,
+  selectIds: selectPostIds
+  // Pass in a selector that returns the posts slice of state
+} = postsAdapter.getSelectors<CS>(state => state.posts);
 
+// Memoized selector - input selectors+ to one selectors output.
 export const selectPostsByUser = createSelector(
-  [selectAllPosts, 
-    (_:CombinedState<{ posts: PostsState;}>, userId:string) => userId],
+  [selectAllPosts, (_:CS, userId:string) => userId],
   (posts, userId) => posts.filter(post => post.user === userId)
 );  

@@ -1,10 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, 
+  createAsyncThunk,
+  createEntityAdapter, 
+  EntityState} from '@reduxjs/toolkit';
+import { CombinedState } from 'redux';
 import { client } from '../../api/client';
 import { User } from './types';
-import { CombinedState } from 'redux';
 
+const usersAdapter = createEntityAdapter<User>({
+  selectId: user => user.id,
+});
 
-const initialState:User[] = [];
+const initialState = usersAdapter.getInitialState();
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   const response = await client.get('/fakeApi/users');
@@ -17,22 +23,16 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchUsers.fulfilled, (state, action) => {
-      //state.fill(action.payload);
-      return action.payload;
-    });
+    builder.addCase(fetchUsers.fulfilled, usersAdapter.setAll);
   }
 });
 
-//export const { postAdded, postUpdated } = usersSlice.actions;
-//export default usersSlice.reducer;
 export const { reducer } = usersSlice; 
 
-  // Users selectors
-  export const selectAllUsers = (
-    state:CombinedState<{ users: User[];}>):User[] => state.users;
-
-  export const selectUserById = (
-    state:CombinedState<{ users: User[];}>, userId:string):User|undefined =>
-      state.users.find(user => user.id === userId);
+// Users selectors
+type CS = CombinedState<{ users: EntityState<User>; }>
+export const { 
+  selectAll:selectAllUsers,
+  selectById: selectUserById
+ } = usersAdapter.getSelectors<CS>(state => state.users);
   

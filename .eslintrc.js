@@ -48,6 +48,8 @@ module.exports = {
   "rules": {
     'semi': ['warn'],
     "max-len": [1, 80, 2, { "ignoreComments": true}],
-    "react/jsx-uses-vars": "error"
+    "react/jsx-uses-vars": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }]
   }
 }

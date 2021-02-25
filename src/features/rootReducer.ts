@@ -11,7 +11,5 @@ export const rootReducer = combineReducers({
   notifications: notificationsReducer
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+type RootState = ReturnType<typeof rootReducer>;
 export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
-
-

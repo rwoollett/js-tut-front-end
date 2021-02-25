@@ -5,6 +5,7 @@ import { useTypedSelector } from '../features/rootReducer';
 import style from '../scss/labshome.scss';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { addNewPost } from '../features/posts/postsSlice';
+import { selectAllUsers } from '../features/users/usersSlice';
 
 const AddPostForm: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -13,7 +14,7 @@ const AddPostForm: React.FC = () => {
   const [addRequestStatus, setAddRequestStatus] = useState('idle');
   const dispatch = useDispatch<AppDispatch>();
 
-  const users = useTypedSelector(state => state.users);
+  const users = useTypedSelector(selectAllUsers);
 
   const onTitleChanged = (e:React.ChangeEvent<HTMLInputElement>) => 
       setTitle(e.target.value);
