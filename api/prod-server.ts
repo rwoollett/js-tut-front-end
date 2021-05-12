@@ -1,5 +1,6 @@
 // External libraries
 var express = require('express');
+import {json} from 'body-parser';
 
 // Local files
 var api = require('./api');
@@ -10,7 +11,7 @@ var api = require('./api');
   // the development code should be copied
   // over to the production server.
   var app = express();
-
+  app.use(json());
   // We serve the bundle folder, which
   // should contain an `index.html` and
   // a `bundle.js` file only.

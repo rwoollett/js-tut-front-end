@@ -36,7 +36,9 @@ module.exports = {
     });
 
     app.post('/api/v1/posts', function (req, res) {
-
+      console.log("api post body:"+ req.body );
+      console.log("api post body:"+ req.body.title );
+      console.log("api post body2:"+ req.body.post.title );
       res.send(
         {
           id: nanoid(),
