@@ -15,7 +15,9 @@ const usersAdapter = createEntityAdapter<User>({
 const initialState = usersAdapter.getInitialState();
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response: HttpResponse<User[]> = await http<User[]>('/api/v1/users', { method: "GET" });
+  const response: HttpResponse<User[]> = await http<User[]>(
+    '/api/v1/users', { method: "GET" }
+  );
   if (response.parsedBody) {
     return response.parsedBody;
   } else {

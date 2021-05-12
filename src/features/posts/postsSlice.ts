@@ -27,7 +27,9 @@ const initialState = postsAdapter.getInitialState(
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async () => {
-    const response: HttpResponse<Post[]> = await http<Post[]>('/api/v1/posts', { method: "GET" });
+    const response: HttpResponse<Post[]> = await http<Post[]>(
+      '/api/v1/posts', { method: "GET" }
+    );
     if (response.parsedBody) {
       return response.parsedBody;
     } else {
@@ -44,10 +46,12 @@ export const addNewPost = createAsyncThunk(
     // const response = await client.post('/fakeApi/posts', 
     //   { post: {title, content, user} });
     const reqInit = {
-      body: JSON.stringify({ post: {title, content, user }}),
+      body: JSON.stringify({ post: { title, content, user } }),
       method: "POST"
     };
-    const response: HttpResponse<Post> = await http<Post>('/api/v1/posts', reqInit);
+    const response: HttpResponse<Post> = await http<Post>(
+      '/api/v1/posts', reqInit
+    );
     if (response.parsedBody) {
       return response.parsedBody;
     } else {
