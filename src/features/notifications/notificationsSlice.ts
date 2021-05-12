@@ -3,8 +3,9 @@ import { createSlice,
   createEntityAdapter, 
   EntityState} from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
-import { client } from '../../api/client';
 import { Notification } from './types';
+import { HttpResponse, http } from '../fetchData';
+
 
 const notificationsAdapter = createEntityAdapter<Notification>({
   selectId: n => n.id,
@@ -22,10 +23,17 @@ export const fetchNotifications = createAsyncThunk<
     const allNotifications = selectAllNotifications(getState());
     const [latestNotification] = allNotifications;
     const latestTimestamp = latestNotification ? latestNotification.date : '';
-    const response = await client.get(
-      `/fakeApi/notifications?since=${latestTimestamp}`
-    );
-    return response.notifications;
+
+    const response: HttpResponse<Notification[]> = await http<Notification[]>(
+      `/api/v1/notifications?since=${latestTimestamp}`,
+       { method: "GET" }
+       );
+    if (response.parsedBody) {
+      return response.parsedBody;
+    } else {
+      return Promise.reject("Could not parse fetch");
+    }
+  
   }
 );
 

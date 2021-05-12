@@ -1,10 +1,12 @@
-import { createSlice, 
+import {
+  createSlice,
   createAsyncThunk,
-  createEntityAdapter, 
-  EntityState} from '@reduxjs/toolkit';
+  createEntityAdapter,
+  EntityState
+} from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
-import { client } from '../../api/client';
 import { User } from './types';
+import { HttpResponse, http } from '../fetchData';
 
 const usersAdapter = createEntityAdapter<User>({
   selectId: user => user.id,
@@ -13,11 +15,15 @@ const usersAdapter = createEntityAdapter<User>({
 const initialState = usersAdapter.getInitialState();
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await client.get('/fakeApi/users');
-  return response.users;
+  const response: HttpResponse<User[]> = await http<User[]>('/api/v1/users', { method: "GET" });
+  if (response.parsedBody) {
+    return response.parsedBody;
+  } else {
+    return Promise.reject("Could not parse fetch");
+  }
 });
 
-  // Warning immutability is obtained with createSclide of RDK
+// Warning immutability is obtained with createSclide of RDK
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
@@ -27,12 +33,11 @@ export const usersSlice = createSlice({
   }
 });
 
-export const { reducer } = usersSlice; 
+export const { reducer } = usersSlice;
 
 // Users selectors
 type CS = CombinedState<{ users: EntityState<User>; }>
-export const { 
-  selectAll:selectAllUsers,
+export const {
+  selectAll: selectAllUsers,
   selectById: selectUserById
- } = usersAdapter.getSelectors<CS>(state => state.users);
-  
+} = usersAdapter.getSelectors<CS>(state => state.users);

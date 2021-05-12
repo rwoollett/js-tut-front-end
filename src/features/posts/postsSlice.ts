@@ -1,12 +1,15 @@
-import { PayloadAction, 
-         createSlice, 
-         createAsyncThunk,
-        createSelector,
-        createEntityAdapter,
-        EntityState } from '@reduxjs/toolkit';
+import {
+  PayloadAction,
+  createSlice,
+  createAsyncThunk,
+  createSelector,
+  createEntityAdapter,
+  EntityState
+} from '@reduxjs/toolkit';
 import { Post, ReactPost } from './types';
-import { client } from '../../api/client';
 import { CombinedState } from 'redux';
+import { HttpResponse, http } from '../fetchData';
+
 
 // Entity adaptor for normalised posts structure; ids end entities.
 const postsAdapter = createEntityAdapter<Post>({
@@ -15,30 +18,44 @@ const postsAdapter = createEntityAdapter<Post>({
 });
 
 interface PostAdaptorProp {
-  status: string; 
+  status: string;
   error?: string
 }
 const initialState = postsAdapter.getInitialState(
   { status: 'idle' } as PostAdaptorProp);
 
 export const fetchPosts = createAsyncThunk(
-  'posts/fetchPosts', 
-  async () =>  {
-    const response = await client.get('/fakeApi/posts');
-    return await response.posts;
-});
+  'posts/fetchPosts',
+  async () => {
+    const response: HttpResponse<Post[]> = await http<Post[]>('/api/v1/posts', { method: "GET" });
+    if (response.parsedBody) {
+      return response.parsedBody;
+    } else {
+      return Promise.reject("Could not parse fetch");
+    }
+  });
 
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
   // The payload creator receives the partial `{title, content, user}` object
-  async ({title, content, user}: 
-      {title: string, content: string, user: string}) => {
+  async ({ title, content, user }:
+    { title: string, content: string, user: string }) => {
     // We send the initial data to the fake API server
-    const response = await client.post('/fakeApi/posts', 
-      { post: {title, content, user} });
+    // const response = await client.post('/fakeApi/posts', 
+    //   { post: {title, content, user} });
+    const reqInit = {
+      body: JSON.stringify({ post: {title, content, user }}),
+      method: "POST"
+    };
+    const response: HttpResponse<Post> = await http<Post>('/api/v1/posts', reqInit);
+    if (response.parsedBody) {
+      return response.parsedBody;
+    } else {
+      return Promise.reject("Could not parse fetch");
+    }
     // The response includes the complete post object, including unique ID
-    console.log('Response post:', response.post, typeof response.post);
-    return response.post;
+    //    console.log('Response post:', response.post, typeof response.post);
+    //    return response.post;
   }
 );
 
@@ -69,28 +86,29 @@ export const postsSlice = createSlice({
     builder.addCase(fetchPosts.pending, (state, _action) => {
       state.status = 'loading';
     }),
-    builder.addCase(fetchPosts.fulfilled, (state, action) => {
-      state.status = 'succeeded';
-      // Add any fetched posts to the array
-      // Use the `upsertMany` reducer as a mutating update utility
-      postsAdapter.upsertMany(state, action.payload);
-    }),
-    builder.addCase(fetchPosts.rejected, (state, action) => {
-      state.status = 'failed';
-      state.error = action.error.message;
-    }),
-    builder.addCase(addNewPost.fulfilled, postsAdapter.addOne);
+      builder.addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        // Add any fetched posts to the array
+        // Use the `upsertMany` reducer as a mutating update utility
+        postsAdapter.upsertMany(state, action.payload);
+      }),
+      builder.addCase(fetchPosts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      }),
+      builder.addCase(addNewPost.fulfilled, postsAdapter.addOne);
   }
 });
 
 export const { postUpdated, reactionAdded } = postsSlice.actions;
-export const { reducer } = postsSlice; 
+export const { reducer } = postsSlice;
 
 // Posts selectors
-type CS = CombinedState<{ 
-  posts: EntityState<Post> & PostAdaptorProp;}>;
+type CS = CombinedState<{
+  posts: EntityState<Post> & PostAdaptorProp;
+}>;
 
-  // Export the customized selectors for this adapter using `getSelectors`
+// Export the customized selectors for this adapter using `getSelectors`
 export const {
   selectAll: selectAllPosts,
   selectById: selectPostById,
@@ -100,6 +118,6 @@ export const {
 
 // Memoized selector - input selectors+ to one selectors output.
 export const selectPostsByUser = createSelector(
-  [selectAllPosts, (_:CS, userId:string) => userId],
+  [selectAllPosts, (_: CS, userId: string) => userId],
   (posts, userId) => posts.filter(post => post.user === userId)
-);  
+);

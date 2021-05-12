@@ -4,9 +4,10 @@ import style from '../scss/labshome.scss';
 import PopularCards from './PopularCards';
 import { CardProps} from './Card';
 import homepage from '../../api/homepage.json';
+import { HttpResponse, http} from '../features/fetchData';
+import PostsComponent from './PostsComponent';
 
 //import HomeNavigation from './HomeNavigation';
-import PostsComponent from './PostsComponent';
 
 // function lazyWithPreload(factory) {
 //   const Component = lazy(factory);
@@ -32,27 +33,6 @@ interface HomePageState {
   isFetching: boolean;
 }
 
-// fetch typed
-interface HttpResponse<T> extends Response {
-  parsedBody?: T
-}
-
-async function http<T>(request:RequestInfo): Promise<HttpResponse<T>>
-{
-  const response: HttpResponse<T> = await fetch(
-    request
-  );
-  try {
-    response.parsedBody = await response.json();
-  } catch (ex) {console.log(ex);}
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-  return response;  
-}
-
-
 class HomePage extends React.Component<HomePageProps, HomePageState> {
   static defaultProps: Partial<HomePageProps> = {
     children: [],
@@ -74,7 +54,7 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
     this.setState({...this.state, isFetching: true});
     let response: HttpResponse<HomePageState>;
     try {
-      response = await http<HomePageState>('/api/v1/homepage');
+      response = await http<HomePageState>('/api/v1/homepage', {method:"GET"});
       if (response.parsedBody) {
           console.log("api", response.parsedBody);
         const {title, description, navCards, popularCards} 
