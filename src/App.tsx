@@ -20,14 +20,14 @@ import {
 
 interface AppProps {
   title: string;
-  done?: boolean;
+//  done?: boolean;
 }
  
 class App extends React.Component<AppProps, unknown> {
   
-  static defaultProps: Partial<AppProps> = { 
-    done: false,
-  }
+  // static defaultProps: Partial<AppProps> = { 
+  //   done: false,
+  // }
 
   constructor(props: AppProps) {
     super(props);

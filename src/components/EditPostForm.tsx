@@ -30,7 +30,7 @@ const EditPostForm: React.FC<{match: MatchProps}> = (
     eyes: 0
   };
 
-  const dispatch = useDispatch(); //Todo check TS
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const onTitleChanged = (e:React.ChangeEvent<HTMLInputElement>) => 

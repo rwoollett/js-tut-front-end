@@ -1,10 +1,8 @@
 import express from 'express';
 import homepage from './homepage.json';
 import { nanoid } from '@reduxjs/toolkit'
-import { sentence, paragraph, article } from 'txtgen'
-import { parseISO } from 'date-fns'
+import { sentence, article } from 'txtgen'
 import seedrandom from 'seedrandom'
-
 
 let rng = seedrandom()
 
@@ -36,9 +34,6 @@ module.exports = {
     });
 
     app.post('/api/v1/posts', function (req, res) {
-      console.log("api post body:"+ req.body );
-      console.log("api post body:"+ req.body.title );
-      console.log("api post body2:"+ req.body.post.title );
       res.send(
         {
           id: nanoid(),

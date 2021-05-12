@@ -7,9 +7,6 @@ import { selectAllNotifications,
          allNotificationsRead } from 
         '../features/notifications/notificationsSlice';
 import { useDispatch } from 'react-redux';
-//import classnames from 'classnames'
-  //import { AppDispatch } from '../store/store';
-
 
 const NotificationsList: React.FC = (): JSX.Element => {
   const dispatch = useDispatch();

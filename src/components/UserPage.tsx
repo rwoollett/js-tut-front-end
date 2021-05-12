@@ -13,11 +13,6 @@ const UserPage: React.FC<{match: {params:{userId:string}}}> = (
   const { userId } = match.params;
 
   const user = useTypedSelector(state => selectUserById(state, userId));
-
-  // const postsForUser = useTypedSelector(state => {
-  //   const allPosts = selectAllPosts(state);
-  //   return allPosts.filter(post => post.user === userId);
-  // });
   // A memoized selector usage...
   const postsForUser = useTypedSelector(
     state => selectPostsByUser(state, userId));

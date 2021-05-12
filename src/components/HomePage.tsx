@@ -6,20 +6,7 @@ import { CardProps} from './Card';
 import homepage from '../../api/homepage.json';
 import { HttpResponse, http} from '../features/fetchData';
 import PostsComponent from './PostsComponent';
-
-//import HomeNavigation from './HomeNavigation';
-
-// function lazyWithPreload(factory) {
-//   const Component = lazy(factory);
-
-//   // Comment below line to check difference ->
-//   Component.preload = factory;
-//   return Component;
-// }
-const HomeNavigation = lazy(() => import(
-  /* webpackChunkName: "hnav" */'./HomeNavigation'));
-//const PostsComponent = lazy(() => import('./PostsComponent'));
-
+const HomeNavigation = lazy(() => import('./HomeNavigation'));
 
 interface HomePageProps {
   children: JSX.Element[];
@@ -65,7 +52,6 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
         });
       }
     } catch (response) {
-      //console.log("Error", response);
       const {title, description, navCards, popularCards} 
            = homepage.homepage;
       this.setState({

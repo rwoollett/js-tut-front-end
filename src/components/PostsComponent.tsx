@@ -64,7 +64,6 @@ function PostsComponent(): JSX.Element {
     content = <div className={styles.loader}>Loading...</div>;
 
   } else if (postStatus === 'succeeded') {
-    // Sort posts in reverse chronological order by datetime string
     content = orderedPosts.map( postId => 
 		(
 			<PostExcerpt key={postId} postId={postId}/>
