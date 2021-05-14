@@ -25,19 +25,19 @@ const AddPostForm: React.FC = () => {
 
   const canSave = [title, content, userId].every(Boolean) &&
     addRequestStatus === 'idle';
-  
+
   const onSavePostClicked = async () => {
     if (canSave) {
       try {
         setAddRequestStatus('pending');
         const resultAction = await dispatch(
-          addNewPost({title, content, user:userId})
+          addNewPost({ title, content, user: userId })
         );
         unwrapResult(resultAction);
         setTitle('');
         setContent('');
         setUserId('');
-      } catch(err) {
+      } catch (err) {
         console.error('Failed to save the post: ', err);
       } finally {
         setAddRequestStatus('idle');
@@ -49,39 +49,39 @@ const AddPostForm: React.FC = () => {
     <option key={user.id} value={user.id}>
       {user.name}
     </option>
-  ));  
-      
-  return (
-      <form>
-        <label htmlFor="postTitle">Post Title</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={onTitleChanged}
-        />
+  ));
 
-        <label htmlFor="postAuthor">Author:</label>
-        <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
-          <option value=""></option>
-          {usersOptions}
-        </select>
-        
-        <label htmlFor="postContent">Content</label>
-        <textarea
-          id="postContent"
-          name="postContent"
-          value={content}
-          onChange={onContentChanged}
-        />
-        <div className={style['button-container']}>
-          <button type="button" 
-            onClick={onSavePostClicked}>
-            Save
+  return (
+    <form>
+      <label htmlFor="postTitle">Post Title</label>
+      <input
+        type="text"
+        id="postTitle"
+        name="postTitle"
+        value={title}
+        onChange={onTitleChanged}
+      />
+
+      <label htmlFor="postAuthor">Author:</label>
+      <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
+        <option value=""></option>
+        {usersOptions}
+      </select>
+
+      <label htmlFor="postContent">Content</label>
+      <textarea
+        id="postContent"
+        name="postContent"
+        value={content}
+        onChange={onContentChanged}
+      />
+      <div className={style['button-container']}>
+        <button type="button"
+          onClick={onSavePostClicked}>
+          Save
           </button>
-        </div>
-      </form>
+      </div>
+    </form>
   );
 };
 

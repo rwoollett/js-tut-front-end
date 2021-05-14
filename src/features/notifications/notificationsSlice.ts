@@ -1,43 +1,39 @@
-import { createSlice, 
+import {
+  createSlice,
   createAsyncThunk,
-  createEntityAdapter, 
-  EntityState} from '@reduxjs/toolkit';
+  createEntityAdapter,
+  EntityState
+} from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
 import { Notification } from './types';
-import { HttpResponse, http } from '../fetchData';
+import { http } from '../fetchData';
 
 
 const notificationsAdapter = createEntityAdapter<Notification>({
   selectId: n => n.id,
-  sortComparer: (a, b) => b.date.localeCompare(a.date)  
+  sortComparer: (a, b) => b.date.localeCompare(a.date)
 });
 const initialState = notificationsAdapter.getInitialState();
 
-type CS = CombinedState<{ 
-  notifications: EntityState<Notification>;}>;
+type CS = CombinedState<{
+  notifications: EntityState<Notification>;
+}>;
 
 export const fetchNotifications = createAsyncThunk<
-   Notification[], void, { state: CS }> (
-  'notifications/fetchNotifications', 
-  async (_, { getState }) => {
-    const allNotifications = selectAllNotifications(getState());
-    const [latestNotification] = allNotifications;
-    const latestTimestamp = latestNotification ? latestNotification.date : '';
-
-    const response: HttpResponse<Notification[]> = await http<Notification[]>(
-      `/api/v1/notifications?since=${latestTimestamp}`,
-       { method: "GET" }
-       );
-    if (response.parsedBody) {
-      return response.parsedBody;
-    } else {
-      return Promise.reject("Could not parse fetch");
+  Notification[], void, { state: CS }>(
+    'notifications/fetchNotifications',
+    async (_, { getState }) => {
+      const allNotifications = selectAllNotifications(getState());
+      const [latestNotification] = allNotifications;
+      const latestTimestamp = latestNotification ? latestNotification.date : '';
+      return await http<Notification[]>(
+        `/api/v1/notifications?since=${latestTimestamp}`,
+        { method: "GET" }
+      );
     }
-  
-  }
-);
+  );
 
-  // Warning immutability is obtained with createSclide of RDK
+// Warning immutability is obtained with createSclide of RDK
 export const notificationsSlice = createSlice({
   name: 'notifications',
   initialState,
@@ -64,7 +60,7 @@ export const notificationsSlice = createSlice({
 });
 
 export const { allNotificationsRead } = notificationsSlice.actions;
-export const { reducer } = notificationsSlice; 
+export const { reducer } = notificationsSlice;
 
 export const {
   selectAll: selectAllNotifications

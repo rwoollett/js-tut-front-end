@@ -29,12 +29,12 @@ module.exports = {
   defineApi: function (app: express.Express) {
 
     app.get('/api/v1/homepage', function (req, res) {
-      res.send(homepage.homepage);
+      res.json(homepage.homepage);
 
     });
 
     app.post('/api/v1/posts', function (req, res) {
-      res.send(
+      res.json(
         {
           id: nanoid(),
           date: new Date(),
@@ -54,7 +54,7 @@ module.exports = {
 
     app.get('/api/v1/posts', function (req, res) {
 
-      res.send(
+      res.json(
         [
           {
             id: nanoid(),
@@ -103,7 +103,7 @@ module.exports = {
 
     app.get('/api/v1/users', function (req, res) {
 
-      res.send(
+      res.json(
         [
           {
             id: "400",
@@ -146,7 +146,7 @@ module.exports = {
         }
       })
 
-      res.send(notifications);
+      res.json(notifications);
 
     });
 

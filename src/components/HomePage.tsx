@@ -2,9 +2,9 @@ import React, { lazy, Suspense } from 'react';
 import Banner from './Banner';
 import style from '../scss/labshome.scss';
 import PopularCards from './PopularCards';
-import { CardProps} from './Card';
+import { CardProps } from './Card';
 import homepage from '../../api/homepage.json';
-import { HttpResponse, http} from '../features/fetchData';
+import { http } from '../features/fetchData';
 import PostsComponent from './PostsComponent';
 const HomeNavigation = lazy(() => import('./HomeNavigation'));
 
@@ -13,7 +13,7 @@ interface HomePageProps {
 }
 
 interface HomePageState {
-  title: string; 
+  title: string;
   description: string;
   navCards: CardProps[];
   popularCards: CardProps[];
@@ -28,32 +28,30 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
   constructor(props: HomePageProps) {
     super(props);
     this.state = {
-      title: '', 
+      title: '',
       description: '',
-      navCards: [{title: ' ', catchPhrase: ''}],
-      popularCards: [{title: ' ', catchPhrase: ''}],
+      navCards: [{ title: ' ', catchPhrase: '' }],
+      popularCards: [{ title: ' ', catchPhrase: '' }],
       isFetching: true
     };
 
-  } 
-  
-  async fetchHomepagesWithFetch(): Promise<void> { 
-    this.setState({...this.state, isFetching: true});
-    let response: HttpResponse<HomePageState>;
+  }
+
+  async fetchHomepagesWithFetch(): Promise<void> {
+    this.setState({ ...this.state, isFetching: true });
+    let response: HomePageState;
     try {
-      response = await http<HomePageState>('/api/v1/homepage', {method:"GET"});
-      if (response.parsedBody) {
-          console.log("api", response.parsedBody);
-        const {title, description, navCards, popularCards} 
-           = response.parsedBody;
-        this.setState({
-          title, description, navCards, popularCards,
-          isFetching: false
-        });
-      }
+      response = await http<HomePageState>(
+        '/api/v1/homepage',
+        { method: "GET" });
+      const { title, description, navCards, popularCards } = response;
+      this.setState({
+        title, description, navCards, popularCards,
+        isFetching: false
+      });
     } catch (response) {
-      const {title, description, navCards, popularCards} 
-           = homepage.homepage;
+      const { title, description, navCards, popularCards } = homepage.homepage;
+      console.log("Message page :", title);
       this.setState({
         title, description, navCards, popularCards,
         isFetching: false
@@ -65,18 +63,22 @@ class HomePage extends React.Component<HomePageProps, HomePageState> {
     this.fetchHomepagesWithFetch();
   }
 
-  render (): JSX.Element {
-    const {title, description, navCards, popularCards, isFetching} = this.state;
+  render(): JSX.Element {
+    const { title,
+      description,
+      navCards,
+      popularCards,
+      isFetching } = this.state;
     return (
-        isFetching ? 
-         <div>Fetching home page ...</div> : 
-         <div><Banner title={title} desc={description}/>
+      isFetching ?
+        <div>Fetching home page ...</div> :
+        <div><Banner title={title} desc={description} />
           <div className={style.container}>
             <Suspense fallback={<div>Loading.....</div>}>
-              {<HomeNavigation cards={navCards}/>}
+              {<HomeNavigation cards={navCards} />}
             </Suspense>
-            <PostsComponent/>
-            <PopularCards cards={popularCards}/>
+            <PostsComponent />
+            <PopularCards cards={popularCards} />
           </div>
         </div>);
   }

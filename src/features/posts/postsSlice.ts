@@ -8,7 +8,7 @@ import {
 } from '@reduxjs/toolkit';
 import { Post, ReactPost } from './types';
 import { CombinedState } from 'redux';
-import { HttpResponse, http } from '../fetchData';
+import { http } from '../fetchData';
 
 
 // Entity adaptor for normalised posts structure; ids end entities.
@@ -27,14 +27,20 @@ const initialState = postsAdapter.getInitialState(
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async () => {
-    const response: HttpResponse<Post[]> = await http<Post[]>(
-      '/api/v1/posts', { method: "GET" }
-    );
-    if (response.parsedBody) {
-      return response.parsedBody;
-    } else {
-      return Promise.reject("Could not parse fetch");
-    }
+    return await http<Post[]>('/api/v1/posts', { method: "GET" });
+    // if (response.parsedBody) {
+    //   return response.parsedBody;
+    // } else {
+    //   return Promise.reject("Could not parse fetch");
+    // }
+    // const response: HttpResponse<Post[]> = await http<Post[]>(
+    //   '/api/v1/posts', { method: "GET" }
+    // );
+    // if (response.parsedBody) {
+    //   return response.parsedBody;
+    // } else {
+    //   return Promise.reject("Could not parse fetch");
+    // }
   });
 
 export const addNewPost = createAsyncThunk(
@@ -47,16 +53,18 @@ export const addNewPost = createAsyncThunk(
     //   { post: {title, content, user} });
     const reqInit = {
       body: JSON.stringify({ post: { title, content, user } }),
+      //body: { set: function(name, title), set:"content", user),
       method: "POST"
     };
-    const response: HttpResponse<Post> = await http<Post>(
-      '/api/v1/posts', reqInit
-    );
-    if (response.parsedBody) {
-      return response.parsedBody;
-    } else {
-      return Promise.reject("Could not parse fetch");
-    }
+    return await http<Post>('/api/v1/posts', reqInit);
+    // const response: Post = await http<Post>(
+    //   '/api/v1/posts', reqInit
+    // );
+    // if (response.parsedBody) {
+    //   return response.parsedBody;
+    // } else {
+    //   return Promise.reject("Could not parse fetch");
+    // }
     // The response includes the complete post object, including unique ID
     //    console.log('Response post:', response.post, typeof response.post);
     //    return response.post;
