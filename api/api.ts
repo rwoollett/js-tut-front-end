@@ -52,8 +52,21 @@ module.exports = {
 
     });
 
-    app.get('/api/v1/posts', function (req, res) {
+    app.put('/api/v1/posts', function (req, res) {
+      res.json(
+        {
+          id: req.body.post.id,
+          date: req.body.post.date,
+          title: req.body.post.title,
+          content: req.body.post.content,
+          user: req.body.post.user,
+          reactions: req.body.post.reactions,
+        });
 
+    });
+
+    app.get('/api/v1/posts', function (req, res) {
+      console.log("POST");
       res.json(
         [
           {

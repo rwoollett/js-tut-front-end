@@ -28,19 +28,6 @@ export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async () => {
     return await http<Post[]>('/api/v1/posts', { method: "GET" });
-    // if (response.parsedBody) {
-    //   return response.parsedBody;
-    // } else {
-    //   return Promise.reject("Could not parse fetch");
-    // }
-    // const response: HttpResponse<Post[]> = await http<Post[]>(
-    //   '/api/v1/posts', { method: "GET" }
-    // );
-    // if (response.parsedBody) {
-    //   return response.parsedBody;
-    // } else {
-    //   return Promise.reject("Could not parse fetch");
-    // }
   });
 
 export const addNewPost = createAsyncThunk(
@@ -49,25 +36,34 @@ export const addNewPost = createAsyncThunk(
   async ({ title, content, user }:
     { title: string, content: string, user: string }) => {
     // We send the initial data to the fake API server
-    // const response = await client.post('/fakeApi/posts', 
-    //   { post: {title, content, user} });
     const reqInit = {
       body: JSON.stringify({ post: { title, content, user } }),
-      //body: { set: function(name, title), set:"content", user),
       method: "POST"
     };
     return await http<Post>('/api/v1/posts', reqInit);
-    // const response: Post = await http<Post>(
-    //   '/api/v1/posts', reqInit
-    // );
-    // if (response.parsedBody) {
-    //   return response.parsedBody;
-    // } else {
-    //   return Promise.reject("Could not parse fetch");
-    // }
     // The response includes the complete post object, including unique ID
-    //    console.log('Response post:', response.post, typeof response.post);
-    //    return response.post;
+    // console.log('Response post:', response.post, typeof response.post);
+    // return response.post;
+  }
+);
+
+export const updatePost = createAsyncThunk(
+  'posts/updatePost',
+  // The payload creator receives the partial `{title, content, user}` object
+  async ({ id, title, content, user, date, reactions }: Post) => {
+    //  { id: string, title: string, content: string }) => {
+    // We send the data to the fake API server
+    const reqInit = {
+      body: JSON.stringify({
+        post: { id, title, content, user, date, reactions }
+      }),
+      method: "PUT"
+    };
+    console.log('Response before put:', reqInit);
+    const response = await http<Post>('/api/v1/posts', reqInit);
+    // The response includes the complete post object, including unique ID
+    console.log('Response put:', response, typeof response);
+    return response;
   }
 );
 
@@ -84,15 +80,15 @@ export const postsSlice = createSlice({
         existingPost.reactions[reaction]++;
       }
     },
-    postUpdated(state, action: PayloadAction<Post>) {
-      const { id, title, content } = action.payload;
-      const existingPost = state.entities[id];
-      if (existingPost) {
-        // immer functionality for immutability
-        existingPost.title = title;
-        existingPost.content = content;
-      }
-    }
+    // postUpdated(state, action: PayloadAction<Post>) {
+    //   const { id, title, content } = action.payload;
+    //   const existingPost = state.entities[id];
+    //   if (existingPost) {
+    //     // immer functionality for immutability
+    //     existingPost.title = title;
+    //     existingPost.content = content;
+    //   }
+    // }
   },
   extraReducers: builder => {
     builder.addCase(fetchPosts.pending, (state, _action) => {
@@ -108,11 +104,21 @@ export const postsSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       }),
-      builder.addCase(addNewPost.fulfilled, postsAdapter.addOne);
+      builder.addCase(addNewPost.fulfilled, postsAdapter.addOne),
+      builder.addCase(updatePost.fulfilled, (state, action) => {
+        const { id, title, content } = action.payload;
+        const existingPost = state.entities[id];
+        if (existingPost) {
+          // immer functionality for immutability
+          existingPost.title = title;
+          existingPost.content = content;
+        }
+
+      });
   }
 });
-
-export const { postUpdated, reactionAdded } = postsSlice.actions;
+//postUpdated,
+export const { reactionAdded } = postsSlice.actions;
 export const { reducer } = postsSlice;
 
 // Posts selectors
