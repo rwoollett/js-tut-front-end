@@ -9,7 +9,7 @@ const prodConfig = {
     filename: '[name].[contenthash].bundle.js',
     chunkFilename: '[name].[contenthash].bundle.js',
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/'
+    publicPath: '/latest/'
   },
   optimization: {
     splitChunks: {
@@ -32,7 +32,7 @@ const prodConfig = {
     // ]
   },
   plugins: [
-    new BundleAnalyzerPlugin()
+   // new BundleAnalyzerPlugin()
   ]
 
 }
