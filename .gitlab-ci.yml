@@ -15,6 +15,7 @@ default:
 deploy_web:
   stage: build
   script:
+    - npm install node-sass@latest
     - npm install
     - |
       {
