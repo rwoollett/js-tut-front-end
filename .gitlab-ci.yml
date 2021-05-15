@@ -1,6 +1,4 @@
-default:
-  image: node:latest
-
+build:
   # Validate that the repository contains a package.json and extract a few values from it.
   before_script:
     - |
@@ -11,9 +9,8 @@ default:
       fi
     - NPM_PACKAGE_NAME=$(node -p "require('./package.json').name")
     - NPM_PACKAGE_VERSION=$(node -p "require('./package.json').version")
-
-deploy_web:
   stage: build
+  image: node:latest
   script:
     - npm install node-sass@latest
     - npm install
@@ -24,6 +21,9 @@ deploy_web:
       } || {
         echo "No new version of ${NPM_PACKAGE_NAME} published."
       }
+  artifacts:
+    paths:
+      - ./dist
 
 deploy:
   stage: deploy
