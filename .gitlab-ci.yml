@@ -1,0 +1,6 @@
+deploy:
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest  # see the note below
+  script:
+    - aws s3 sync dist s3://rwlltt-frontend/latest
+    - aws cloudfront create-invalidation --distribution-id E3TAWA7VPCGZY7 --paths "/latest/index.html"
