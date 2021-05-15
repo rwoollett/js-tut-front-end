@@ -17,7 +17,7 @@ deploy_web:
   script:
     - |
       {
-        npm build &&
+        npm run build &&
         echo "Successfully built version ${NPM_PACKAGE_VERSION} of ${NPM_PACKAGE_NAME}"
       } || {
         echo "No new version of ${NPM_PACKAGE_NAME} published."
