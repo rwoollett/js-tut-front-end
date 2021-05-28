@@ -27,7 +27,10 @@ const initialState = postsAdapter.getInitialState(
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async () => {
-    return await http<Post[]>('/api/v1/posts', { method: "GET" });
+    ////https://rwlltt-posts-idbnqj5ocq-uw.a.run.app/persons
+    return await http<Post[]>('http://localhost:8082/api/v2/posts', { method: "GET" });
+    //return await http<Post[]>('https://rwlltt-posts-idbnqj5ocq-uw.a.run.app/persons', { method: "GET" });
+    //return await http<Post[]>('/api/v1/posts', { method: "GET" });
   });
 
 export const addNewPost = createAsyncThunk(
