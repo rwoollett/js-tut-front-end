@@ -2,10 +2,9 @@ FROM node:10 as builder
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install python3 g++ make
+#RUN apt-get update && apt-get install python3 g++ make
 
 COPY package.json .
-RUN npm install node-sass
 RUN npm install
 COPY . .
 RUN npm run build
