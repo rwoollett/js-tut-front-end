@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: postsui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postsui
+  template:
+    metadata:
+      labels:
+        app: postsui
+    spec:
+      containers:
+        - name: postsui
+          image: rwlltt/postsui
+          env:
+            - name: BASE_URL_API
+              value: http:/localhost:8081
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: postsui
+spec:
+  selector:
+    app: postsui
+  ports:
+    - name: postsui
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      
+

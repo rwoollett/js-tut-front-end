@@ -16,4 +16,5 @@ declare module '*.png' {
    export = value;
 }
 
+
 //declare module '@babel/plugin-syntax-dynamic-import';

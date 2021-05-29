@@ -10,6 +10,9 @@ store.dispatch(fetchUsers());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+    <pre>
+            {JSON.stringify(window.ENV, null, 2)}
+          </pre>
       <App title="Front Ends"/>
     </Provider>
   </React.StrictMode>,
