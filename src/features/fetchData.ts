@@ -24,7 +24,7 @@ export async function http<T>(request: string, {
   try {
     const response = await fetch(request, config);
     return response.json();
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     return Promise.reject(err.message ? err.message : "");
   }
