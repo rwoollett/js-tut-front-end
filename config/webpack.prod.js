@@ -32,7 +32,7 @@ const prodConfig = {
     // ]
   },
   plugins: [
-   // new BundleAnalyzerPlugin()
+   //new BundleAnalyzerPlugin()
   ]
 
 }

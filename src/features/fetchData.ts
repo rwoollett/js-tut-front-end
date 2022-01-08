@@ -7,6 +7,17 @@ interface FetchConfig {
   method: string;
   headers?: { [key: string]: string; }
 }
+interface IError {
+  message: string;
+}
+
+const handleError = function (err: IError) {
+  console.warn(err);
+  return new Response(JSON.stringify({
+    code: 400,
+    message: 'Stupid network Error'
+  }));
+};
 
 export async function http<T>(request: string, {
   body,
@@ -21,11 +32,21 @@ export async function http<T>(request: string, {
     }
   };
   console.log(config);
-  try {
-    const response = await fetch(request, config);
+
+  // Get the request
+  const response = await (fetch(request, config).catch(handleError));
+  if (response.ok) {
+    //console.log("RESPONSE:" + response.json());
     return response.json();
-  } catch (err: any) {
-    console.log(err);
-    return Promise.reject(err.message ? err.message : "");
+  } else {
+    return Promise.reject(response);
   }
+  // try {
+  //   const response = await fetch(request, config);
+  //   return response.json();
+  // } catch (err: string ) {
+  //   console.log(err);
+  //   return Promise.reject(err.message ? err.message : "");
+  // }
+
 }
