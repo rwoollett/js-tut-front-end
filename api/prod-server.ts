@@ -5,7 +5,9 @@ import defineApi from './api';
 
   // = PROD =
  let port:number = 0;
-if (!process.env.PORT) {
+if (process.env.PORT) {
+  port = Number.parseInt(process.env.PORT);
+} else {
   // If env has no PORT, we will default to webpack'd env
   port = 8080;
 }
@@ -29,5 +31,5 @@ if (!process.env.PORT) {
   })
   
   app.listen(port, function () {
-    console.log('Both front-end and API are up!')
+    console.log('Both front-end and API are up!', port)
   });
