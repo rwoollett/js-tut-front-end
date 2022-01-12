@@ -2,14 +2,17 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
+    "prestart": "tsc",
     "start": "webpack serve --config config/webpack.dev.js --mode=development",
+    "prebuild": "tsc",
     "build": "webpack --config config/webpack.prod.js --mode=production",
-    "dev-api": "ts-node --project api/tsconfig.json api/dev-api.ts",
-    "dev": "concurrently --kill-others \"npm run start\" \"npm run dev-api\" \"npm run check-types -- --watch\"",
-    "prod": "ts-node --project api/tsconfig.json api/prod-server.ts",
-    "check-types": "tsc"
+    "dev": "concurrently --kill-others \"npm run start\" \"npm run server\"",
+    "heroku-postbuild": "npm run build",
+    "prod": "node jsdist/api/prod-server.js",
+    "server": "node jsdist/api/dev-api.js",
+    "xxprod": "ts-node --project api/tsconfig.json api/prod-server.ts",
+    "xxdev-api": "ts-node --project api/tsconfig.json api/dev-api.ts"
   },
   "repository": {
     "type": "git",
@@ -67,6 +70,7 @@
   },
   "dependencies": {
     "axios": "^0.21.4",
+    "express": "^4.17.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
