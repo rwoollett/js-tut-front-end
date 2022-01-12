@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import style from '../scss/labshome.scss';
-import * as Logo from '../scss/images/logo.svg';
+//import * as Logo from '../scss/images/logo.svg';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector} from '../features/rootReducer';
 import { fetchNotifications, selectAllNotifications } 
@@ -26,7 +26,7 @@ const NavBar: React.FC = () => {
 
   return (
     <div className={style["navbar-minimal"]}>
-      <img src={ Logo.default }/>
+      {/* <img src={ Logo.default }/> */}
       <Link to="/">Home</Link>
       <Link to="/users">Users</Link>
       <Link to="/notifications">
